@@ -21,6 +21,8 @@ import { errorHandler } from "./Middlewares/error.middleware.js";
 import freelancerRoutes from "./Routes/freelancer.routes.js";
 import portfolioRoutes from "./Routes/portfolio.routes.js";
 import contactRoutes from "./Routes/contact.routes.js"
+import { authenticateToken } from "./Middlewares/protect.middleware.js";
+import prisma from "./prismaClient.js";
 
 const app = express();
 
@@ -68,6 +70,29 @@ app.use("/api/v1/portfolio", portfolioRoutes);
 app.use("/api/v1/contact", contactRoutes);
 
 
+app.get("/api/v1/client/jobs", authenticateToken, async(req, res) => {
+  const clientId = req.user.id
+  const jobs = await prisma.job.findMany({
+    where : {
+      postedById : clientId
+    }
+  })
+
+  return res.json(jobs)
+})
+
+app.get("/api/v1/jobs/applications/:jobId",async (req, res) => {
+    const jobId = req.params.jobId;
+
+    const applicant = await prisma.job.findMany({
+      where : {
+        jobId
+      },
+      include :{
+        applications : true
+      }
+    })
+})
 
 app.use(errorHandler)
 

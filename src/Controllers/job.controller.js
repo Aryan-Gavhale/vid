@@ -362,37 +362,13 @@ const getAllJobs = async (req, res, next) => {
       ];
     }
 
-    const [jobs, total] = await Promise.all([
-      prisma.job.findMany({
-        where,
-        include: {
-          postedBy: { select: { firstname: true, lastname: true } },
-          freelancer: {
-            select: {
-              firstname: true,
-              lastname: true,
-              profilePicture: true,
-              rating: true,
-              freelancerProfile: {
-                select: { jobTitle: true, skills: true, overview: true },
-              },
-            },
-          },
-        },
-        skip,
-        take: parseInt(limit),
-        orderBy: { createdAt: "desc" },
-      }),
-      prisma.job.count({ where }),
-    ]);
+    const jobs = await prisma.job.findMany({
+
+    })
 
     return res.status(200).json(
       new ApiResponse(200, {
         jobs,
-        total,
-        page: parseInt(page),
-        limit: parseInt(limit),
-        totalPages: Math.ceil(total / limit),
       }, "All jobs retrieved successfully")
     );
   } catch (error) {
