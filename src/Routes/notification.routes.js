@@ -16,9 +16,9 @@ const router = express.Router();
 
 const createNotificationSchema = Joi.object({
   userId: Joi.number().integer().required(),
-  type: Joi.string().valid("ORDER_UPDATE", "MESSAGE", "PAYMENT", "REVIEW", "DISPUTE", "SYSTEM").required(),
+  type: Joi.string().valid("ORDER_UPDATE", "MESSAGE", "PAYMENT", "REVIEW", "DISPUTE", "SYSTEM", "APPLICATION").required(),
   content: Joi.string().required(),
-  entityType: Joi.string().valid("ORDER", "MESSAGE", "REVIEW", "TRANSACTION").optional(),
+  entityType: Joi.string().valid("ORDER", "MESSAGE", "REVIEW", "TRANSACTION", "APPLICATION").optional(),
   entityId: Joi.number().integer().optional(),
   priority: Joi.string().valid("LOW", "NORMAL", "HIGH").optional(),
   expiresAt: Joi.date().optional(),
@@ -26,7 +26,7 @@ const createNotificationSchema = Joi.object({
 });
 
 const getNotificationsSchema = Joi.object({
-  type: Joi.string().valid("ORDER_UPDATE", "MESSAGE", "PAYMENT", "REVIEW", "DISPUTE", "SYSTEM").optional(),
+  type: Joi.string().valid("ORDER_UPDATE", "MESSAGE", "PAYMENT", "REVIEW", "DISPUTE", "SYSTEM", "APPLICATION").optional(),
   isRead: Joi.string().valid("true", "false").optional(),
   page: Joi.number().integer().min(1).default(1),
   limit: Joi.number().integer().min(1).max(100).default(20),
@@ -35,8 +35,8 @@ const getNotificationsSchema = Joi.object({
 // All routes require authentication
 router.use(authenticateToken);
 
-// Admin-only route for creating notifications
-router.post("/", restrictTo("ADMIN"), validateBody(createNotificationSchema), createNotification);
+// Routes for creating notifications
+router.post("/", validateBody(createNotificationSchema), createNotification);
 
 // User-specific routes
 router.get("/", validateQuery(getNotificationsSchema), getNotifications);

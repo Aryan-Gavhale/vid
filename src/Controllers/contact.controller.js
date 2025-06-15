@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from "uuid";
 import {ApiResponse} from "../Utils/ApiResponse.js";
 import fs from "fs/promises"; // For file deletion
 import path from "path";
+import { ApiError } from "../Utils/ApiError.js";
+import multer from "multer";
 
 const prisma = new PrismaClient();
 
@@ -12,6 +14,36 @@ const validCategories = ["TECHNICAL", "BILLING", "ACCOUNT", "FEATURE", "OTHER"];
 const validPriorities = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
 const validContactMethods = ["EMAIL", "PHONE", "ANY"];
 const validStatuses = ["PENDING", "IN_PROGRESS", "RESOLVED", "CLOSED"];
+
+// Configure storage for uploaded files
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadDir = path.join(process.cwd(), "uploads", "contacts");
+    // Create directory if it doesn't exist
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+    const fileExt = path.extname(file.originalname);
+    cb(null, `contact-${uniqueSuffix}${fileExt}`);
+  },
+});
+
+// Configure multer for file uploads
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    // Only allow images
+    if (!file.mimetype.startsWith("image/")) {
+      return cb(new ApiError(400, "Only image files are allowed"));
+    }
+    cb(null, true);
+  },
+}).array("files", 10); // Allow up to 10 files
 
 // Validate form data for creation
 const validateFormData = (data) => {
@@ -694,5 +726,197 @@ export const deleteSubmissionFile = async (req, res) => {
   } finally {
     await prisma.$disconnect();
     console.log(`[${requestId}] Prisma client disconnected`);
+  }
+};
+
+// Submit a contact form
+export const submitContact = (req, res, next) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      if (err instanceof multer.MulterError) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return next(new ApiError(400, "File too large. Maximum size is 5MB"));
+        }
+        return next(new ApiError(400, err.message));
+      }
+      return next(new ApiError(400, err.message));
+    }
+
+    try {
+      // Validate required fields
+      const { firstName, lastName, email, subject, message, category, priority, contactMethod } = req.body;
+      const phone = req.body.phone || null;
+
+      if (!firstName || !lastName || !email || !subject || !message) {
+        return next(new ApiError(400, "Missing required fields"));
+      }
+
+      // Create contact record
+      const contact = await prisma.contact.create({
+        data: {
+          firstName,
+          lastName,
+          email,
+          phone,
+          category: category || "OTHER",
+          subject,
+          message,
+          priority: priority || "MEDIUM",
+          contactMethod: contactMethod || "EMAIL",
+        },
+      });
+
+      // Process uploaded files if any
+      if (req.files && req.files.length > 0) {
+        const contactFiles = req.files.map((file) => ({
+          contactId: contact.id,
+          fileName: file.originalname,
+          filePath: file.path,
+          fileType: file.mimetype,
+          fileSize: file.size,
+        }));
+
+        await prisma.contactFile.createMany({
+          data: contactFiles,
+        });
+      }
+
+      // Return success response
+      return res.status(201).json(
+        new ApiResponse(201, contact, "Contact form submitted successfully")
+      );
+    } catch (error) {
+      console.error("Error submitting contact form:", error);
+      return next(new ApiError(500, "Failed to submit contact form", error.message));
+    }
+  });
+};
+
+// Get all contact submissions (admin only)
+export const getAllContacts = async (req, res, next) => {
+  try {
+    // Add pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    
+    // Add filtering
+    const filter = {};
+    if (req.query.status) filter.status = req.query.status;
+    if (req.query.category) filter.category = req.query.category;
+    if (req.query.priority) filter.priority = req.query.priority;
+    
+    // Count total matching records
+    const totalCount = await prisma.contact.count({ where: filter });
+    
+    // Get contacts with files
+    const contacts = await prisma.contact.findMany({
+      where: filter,
+      include: {
+        files: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      skip,
+      take: limit,
+    });
+
+    return res.status(200).json(
+      new ApiResponse(200, {
+        contacts,
+        pagination: {
+          total: totalCount,
+          page,
+          limit,
+          pages: Math.ceil(totalCount / limit),
+        },
+      }, "Contacts retrieved successfully")
+    );
+  } catch (error) {
+    console.error("Error retrieving contacts:", error);
+    return next(new ApiError(500, "Failed to retrieve contacts", error.message));
+  }
+};
+
+// Get a single contact submission by ID (admin only)
+export const getContactById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    const contact = await prisma.contact.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        files: true,
+      },
+    });
+
+    if (!contact) {
+      return next(new ApiError(404, "Contact not found"));
+    }
+
+    return res.status(200).json(
+      new ApiResponse(200, contact, "Contact retrieved successfully")
+    );
+  } catch (error) {
+    console.error("Error retrieving contact:", error);
+    return next(new ApiError(500, "Failed to retrieve contact", error.message));
+  }
+};
+
+// Update a contact's status (admin only)
+export const updateContactStatus = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    
+    if (!status || !["PENDING", "IN_PROGRESS", "RESOLVED", "CLOSED"].includes(status)) {
+      return next(new ApiError(400, "Invalid status"));
+    }
+    
+    const contact = await prisma.contact.update({
+      where: { id: parseInt(id) },
+      data: { status },
+    });
+
+    return res.status(200).json(
+      new ApiResponse(200, contact, "Contact status updated successfully")
+    );
+  } catch (error) {
+    console.error("Error updating contact status:", error);
+    return next(new ApiError(500, "Failed to update contact status", error.message));
+  }
+};
+
+// Delete a contact submission (admin only)
+export const deleteContact = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    
+    // First get the files to delete them from the filesystem
+    const contactFiles = await prisma.contactFile.findMany({
+      where: { contactId: parseInt(id) },
+    });
+    
+    // Delete the contact from the database
+    await prisma.contact.delete({
+      where: { id: parseInt(id) },
+    });
+    
+    // Delete the files from the filesystem
+    contactFiles.forEach(file => {
+      try {
+        fs.unlinkSync(file.filePath);
+      } catch (error) {
+        console.error(`Failed to delete file ${file.filePath}:`, error);
+      }
+    });
+
+    return res.status(200).json(
+      new ApiResponse(200, null, "Contact deleted successfully")
+    );
+  } catch (error) {
+    console.error("Error deleting contact:", error);
+    return next(new ApiError(500, "Failed to delete contact", error.message));
   }
 };

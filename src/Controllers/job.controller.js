@@ -21,8 +21,14 @@ const applyJob = async (req, res, next) => {
     const job = await prisma.job.findUnique({
       where: { id: jobId },
     });
+    
     if (!job) {
       return next(new ApiError(404, "Job not found"));
+    }
+
+    // Check if job is still open for applications
+    if (job.status !== 'OPEN') {
+      return next(new ApiError(403, "This job is no longer accepting applications"));
     }
 
     const freelancer = await prisma.user.findUnique({
@@ -120,7 +126,8 @@ const createJob = async (req, res, next) => {
         company,
         note,
         videoFileUrl: finalVideoFileUrl,
-        isVerified: false, // Jobs require admin verification
+        isVerified: true, // Set to true by default
+        status: 'OPEN' // Explicitly set status to OPEN
       },
       include: { postedBy: { select: { firstname: true, lastname: true } } },
     });
@@ -163,7 +170,7 @@ const updateJob = async (req, res, next) => {
       where: { id: parseInt(jobId) },
     });
     if (!job || job.postedById !== userId) {
-      return next(new ApiError(404, "Job not found or you don’t own it"));
+      return next(new ApiError(404, "Job not found or you don't own it"));
     }
 
     const updateData = {};
@@ -234,7 +241,7 @@ const deleteJob = async (req, res, next) => {
       where: { id: parseInt(jobId) },
     });
     if (!job || job.postedById !== userId) {
-      return next(new ApiError(404, "Job not found or you don’t own it"));
+      return next(new ApiError(404, "Job not found or you don't own it"));
     }
 
     await prisma.job.delete({
@@ -272,6 +279,11 @@ const getJob = async (req, res, next) => {
             },
           },
         },
+        applications: {
+          select: {
+            status: true
+          }
+        }
       },
     });
 
@@ -279,6 +291,15 @@ const getJob = async (req, res, next) => {
       return next(new ApiError(404, "Job not found"));
     }
 
+    // Check if job is not in OPEN status and has no pending applications
+    const hasPendingApplications = job.applications.some(app => app.status === 'PENDING');
+    if (job.status !== 'OPEN' && !hasPendingApplications && req.user && req.user.id !== job.postedById && req.user.role !== 'ADMIN') {
+      return next(new ApiError(403, "This job is no longer accepting applications"));
+    }
+
+    // Remove applications data from response
+    const { applications, ...jobData } = job;
+    
     if (req.user && req.user.role === "FREELANCER" && req.user.id !== job.postedById) {
       await prisma.job.update({
         where: { id: parsedJobId },
@@ -286,7 +307,7 @@ const getJob = async (req, res, next) => {
       });
     }
 
-    return res.status(200).json(new ApiResponse(200, job, "Job retrieved successfully"));
+    return res.status(200).json(new ApiResponse(200, jobData, "Job retrieved successfully"));
   } catch (error) {
     console.error(`Error retrieving job with ID ${req.params.jobId}:`, error);
     return next(new ApiError(500, "Failed to retrieve job", error.message));
@@ -348,9 +369,18 @@ const getAllJobs = async (req, res, next) => {
     const { category, search, page = 1, limit = 20 } = req.query;
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
+    // Base where condition to exclude jobs with accepted applications
     const where = {
-      isVerified: true,
+      status: 'OPEN', // Only show jobs that are still open
+      NOT: {
+        applications: {
+          some: {
+            status: 'ACCEPTED'
+          }
+        }
+      }
     };
+
     if (category) {
       where.category = { has: category };
     }
@@ -362,13 +392,54 @@ const getAllJobs = async (req, res, next) => {
       ];
     }
 
-    const jobs = await prisma.job.findMany({
+    console.log('Query conditions:', JSON.stringify(where, null, 2));
 
-    })
+    const [jobs, total] = await Promise.all([
+      prisma.job.findMany({
+        where,
+        include: {
+          postedBy: { 
+            select: { 
+              firstname: true, 
+              lastname: true,
+              company: true 
+            } 
+          },
+          applications: {
+            select: {
+              id: true,
+              status: true,
+              createdAt: true
+            }
+          }
+        },
+        skip,
+        take: parseInt(limit),
+        orderBy: { createdAt: "desc" },
+      }),
+      prisma.job.count({ where }),
+    ]);
+
+    console.log(`Found ${jobs.length} jobs out of ${total} total after filtering`);
+
+    const formattedJobs = jobs.map(job => {
+      const { applications, ...jobData } = job;
+      return {
+        ...jobData,
+        applicationCount: applications.length,
+        hasPendingApplications: applications.some(app => app.status === 'PENDING'),
+        createdAt: job.createdAt,
+        deadline: job.deadline
+      };
+    });
 
     return res.status(200).json(
       new ApiResponse(200, {
-        jobs,
+        jobs: formattedJobs,
+        total,
+        page: parseInt(page),
+        limit: parseInt(limit),
+        totalPages: Math.ceil(total / limit),
       }, "All jobs retrieved successfully")
     );
   } catch (error) {
@@ -390,7 +461,11 @@ const checkApplicationStatus = async (req, res, next) => {
     });
 
     return res.status(200).json(
-      new ApiResponse(200, { hasApplied: !!application, status: application?.status || null }, "Application status retrieved")
+      new ApiResponse(200, { 
+        hasApplied: !!application, 
+        status: application?.status || null,
+        applicationId: application?.id || null
+      }, "Application status retrieved")
     );
   } catch (error) {
     console.error("Error in checkApplicationStatus:", error);
@@ -592,34 +667,126 @@ const acceptApplication = async (req, res, next) => {
     const { jobId } = req.params;
     const { freelancerId } = req.body;
 
-    const job = await prisma.job.findUnique({
-      where: { id: parseInt(jobId) },
-      select: { postedById: true, status: true },
+    console.log(`[acceptApplication] Processing request:`, {
+      clientId,
+      jobId,
+      freelancerId
     });
 
-    if (!job || job.postedById !== clientId) {
-      return next(new ApiError(403, "Unauthorized"));
+    // First get the job and all its applications
+    const job = await prisma.job.findUnique({
+      where: { id: parseInt(jobId) },
+      include: {
+        applications: {
+          include: {
+            freelancer: {
+              select: {
+                id: true,
+                firstname: true,
+                lastname: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    if (!job) {
+      return next(new ApiError(404, "Job not found"));
+    }
+
+    if (job.postedById !== clientId) {
+      return next(new ApiError(403, "Unauthorized: You can only accept applications for your own jobs"));
     }
 
     if (job.status !== "OPEN") {
       return next(new ApiError(400, "Job is not open for applications"));
     }
 
-    await prisma.$transaction([
-      prisma.application.update({
-        where: { jobId_freelancerId: { jobId: parseInt(jobId), freelancerId } },
-        data: { status: "ACCEPTED" },
-      }),
-      prisma.job.update({
-        where: { id: parseInt(jobId) },
-        data: { status: "ACCEPTED", freelancerId },
-      }),
-    ]);
+    // Update job status and assign freelancer
+    await prisma.job.update({
+      where: { id: parseInt(jobId) },
+      data: { 
+        status: "ACCEPTED",
+        freelancerId: parseInt(freelancerId)
+      }
+    });
 
-    return res.status(200).json(new ApiResponse(200, null, "Application accepted successfully"));
+    // Accept the chosen application
+    await prisma.application.update({
+      where: {
+        jobId_freelancerId: {
+          jobId: parseInt(jobId),
+          freelancerId: parseInt(freelancerId)
+        }
+      },
+      data: { status: "ACCEPTED" }
+    });
+
+    await prisma.user.update({
+      where: { id: parseInt(freelancerId) },
+      data: {
+        acceptedJobsId: {
+          push: parseInt(jobId),
+        },
+      },
+    });
+
+    // Create notification for accepted freelancer
+    await prisma.notification.create({
+      data: {
+        userId: parseInt(freelancerId),
+        type: "SYSTEM",
+        content: `Congratulations! You have been selected for the job "${job.title}"`,
+        entityType: "JOB",
+        entityId: parseInt(jobId),
+        priority: "HIGH",
+        metadata: {
+          jobId: parseInt(jobId),
+          jobTitle: job.title,
+          status: "ACCEPTED",
+          acceptedAt: new Date().toISOString()
+        }
+      }
+    });
+
+    // Reject all other applications
+    for (const app of job.applications) {
+      if (app.freelancer.id !== parseInt(freelancerId)) {
+        await prisma.application.update({
+          where: {
+            jobId_freelancerId: {
+              jobId: parseInt(jobId),
+              freelancerId: app.freelancer.id
+            }
+          },
+          data: { status: "REJECTED" }
+        });
+
+        // Create rejection notification
+        await prisma.notification.create({
+          data: {
+            userId: app.freelancer.id,
+            type: "SYSTEM",
+            content: `We regret to inform you that another freelancer has been selected for the job "${job.title}"`,
+            entityType: "JOB",
+            entityId: parseInt(jobId),
+            priority: "NORMAL",
+            metadata: {
+              jobId: parseInt(jobId),
+              jobTitle: job.title,
+              status: "REJECTED",
+              rejectedAt: new Date().toISOString()
+            }
+          }
+        });
+      }
+    }
+
+    return res.status(200).json(new ApiResponse(200, { success: true }, "Application accepted and others rejected successfully"));
   } catch (error) {
-    console.error(`Error accepting application for job ${req.params.jobId}:`, error);
-    return next(new ApiError(500, "Failed to accept application", error.message));
+    console.error(`[acceptApplication] Error:`, error);
+    return next(new ApiError(500, "Failed to accept application: " + error.message));
   }
 };
 
@@ -630,25 +797,109 @@ const rejectApplication = async (req, res, next) => {
     }
     const clientId = req.user.id;
     const { jobId } = req.params;
-    const { freelancerId } = req.body;
+    const { freelancerId, message } = req.body;
 
-    const job = await prisma.job.findUnique({
-      where: { id: parseInt(jobId) },
-      select: { postedById: true },
+    // First find the application with job details
+    const application = await prisma.application.findFirst({
+      where: { 
+        jobId: parseInt(jobId),
+        freelancerId: parseInt(freelancerId)
+      },
+      include: {
+        job: {
+          select: { 
+            title: true, 
+            postedById: true,
+            category: true,
+            budgetMin: true,
+            budgetMax: true
+          }
+        }
+      }
     });
 
-    if (!job || job.postedById !== clientId) {
-      return next(new ApiError(403, "Unauthorized"));
+    if (!application) {
+      return next(new ApiError(404, "Application not found"));
     }
 
-    await prisma.application.update({
-      where: { jobId_freelancerId: { jobId: parseInt(jobId), freelancerId } },
-      data: { status: "REJECTED" },
+    if (application.job.postedById !== clientId) {
+      return next(new ApiError(403, "Unauthorized to reject this application"));
+    }
+
+    // Update application status
+    const updatedApplication = await prisma.application.update({
+      where: { 
+        jobId_freelancerId: {
+          jobId: parseInt(jobId),
+          freelancerId: parseInt(freelancerId)
+        }
+      },
+      data: { status: "REJECTED" }
+    });
+
+    for (const app of job.applications) {
+      if (app.freelancer.id !== parseInt(freelancerId)) {
+        await prisma.application.update({
+          where: {
+            jobId_freelancerId: {
+              jobId: parseInt(jobId),
+              freelancerId: app.freelancer.id,
+            },
+          },
+          data: { status: "REJECTED" },
+        });
+    
+        await prisma.user.update({
+          where: { id: app.freelancer.id },
+          data: {
+            rejectedJobsId: {
+              push: parseInt(jobId),
+            },
+          },
+        });
+    
+        // Create rejection notification
+        await prisma.notification.create({
+          data: {
+            userId: app.freelancer.id,
+            type: "SYSTEM",
+            content: `We regret to inform you that another freelancer has been selected for the job "${job.title}"`,
+            entityType: "JOB",
+            entityId: parseInt(jobId),
+            priority: "NORMAL",
+            metadata: {
+              jobId: parseInt(jobId),
+              jobTitle: job.title,
+              status: "REJECTED",
+              rejectedAt: new Date().toISOString(),
+            },
+          },
+        });
+      }
+    }
+
+    // Create notification for the freelancer
+    await prisma.notification.create({
+      data: {
+        userId: parseInt(freelancerId),
+        type: "SYSTEM",
+        content: message || `Sorry to inform you, but your application for "${application.job.title}" has been rejected.`,
+        entityType: "APPLICATION",
+        entityId: updatedApplication.id,
+        priority: "HIGH",
+        metadata: {
+          jobId: parseInt(jobId),
+          jobTitle: application.job.title,
+          jobCategory: application.job.category,
+          budgetRange: `$${application.job.budgetMin} - $${application.job.budgetMax}`,
+          rejectedAt: new Date().toISOString()
+        }
+      }
     });
 
     return res.status(200).json(new ApiResponse(200, null, "Application rejected successfully"));
   } catch (error) {
-    console.error(`Error rejecting application for job ${req.params.jobId}:`, error);
+    console.error(`Error rejecting application:`, error);
     return next(new ApiError(500, "Failed to reject application", error.message));
   }
 };
@@ -843,6 +1094,67 @@ const getAllApplicationsAdmin = async (req, res, next) => {
   }
 };
 
+const getActiveJobs = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return next(new ApiError(401, "Unauthorized: User not authenticated"));
+    }
+
+    const freelancerId = req.user.id;
+
+    // Fetch jobs where the freelancer is assigned
+    const jobs = await prisma.job.findMany({
+      where: {
+        freelancerId: freelancerId,
+        status: {
+          in: ["ACCEPTED", "IN_PROGRESS"],
+        },
+      },
+      include: {
+        postedBy: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    // Map jobs to match frontend expectations
+    const activeJobs = jobs.map((job) => {
+      const deadline = job.deadline ? new Date(job.deadline) : null;
+      const daysLeft = deadline
+        ? Math.max(0, Math.ceil((deadline - new Date()) / (1000 * 60 * 60 * 24)))
+        : 0;
+
+      return {
+        id: job.id,
+        title: job.title,
+        deadline: deadline?.toISOString() || null,
+        progress: job.progress || 0,
+        daysLeft,
+        totalPrice: job.budgetMax || 0,
+        postedBy: {
+          id: job.postedBy.id,
+          firstname: job.postedBy.firstname || "Unknown",
+          lastname: job.postedBy.lastname || "",
+          email: job.postedBy.email,
+        },
+      };
+    });
+
+    return res.status(200).json(new ApiResponse(200, activeJobs, "Active jobs fetched successfully"));
+  } catch (error) {
+    console.error(`[getActiveJobs] Error:`, error);
+    return next(new ApiError(500, "Failed to fetch active jobs: " + error.message));
+  }
+};
+
 export {
   createJob,
   updateJob,
@@ -863,4 +1175,5 @@ export {
   unverifyJob,
   deleteJobAdmin,
   getAllApplicationsAdmin,
+  getActiveJobs,
 };

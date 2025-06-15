@@ -230,7 +230,7 @@ const updatePortfolioVideo = async (req, res, next) => {
       where: { id: parseInt(videoId) },
     });
     if (!portfolioVideo || portfolioVideo.freelancerId !== freelancerProfile.id) {
-      return next(new ApiError(404, "Portfolio video not found or you don’t own it"));
+      return next(new ApiError(404, "Portfolio video not found or you don't own it"));
     }
 
     const updateData = {};
@@ -273,7 +273,7 @@ const deletePortfolioVideo = async (req, res, next) => {
       where: { id: parseInt(videoId) },
     });
     if (!portfolioVideo || portfolioVideo.freelancerId !== freelancerProfile.id) {
-      return next(new ApiError(404, "Portfolio video not found or you don’t own it"));
+      return next(new ApiError(404, "Portfolio video not found or you don't own it"));
     }
 
     await prisma.portfolioVideo.delete({
@@ -290,25 +290,76 @@ const deletePortfolioVideo = async (req, res, next) => {
 const getPublicFreelancerProfile = async (req, res, next) => {
   try {
     const { userId } = req.params;
+    const parsedUserId = parseInt(userId);
+
+    // First check if user exists and is active
+    const user = await prisma.user.findUnique({
+      where: { id: parsedUserId },
+      select: { isActive: true, role: true }
+    });
+
+    if (!user) {
+      return next(new ApiError(404, "User not found"));
+    }
+
+    if (!user.isActive) {
+      return next(new ApiError(404, "User account is deactivated"));
+    }
+
+    if (user.role !== "FREELANCER") {
+      return next(new ApiError(404, "User is not a freelancer"));
+    }
 
     const freelancerProfile = await prisma.freelancerProfile.findUnique({
-      where: { userId: parseInt(userId) },
+      where: { userId: parsedUserId },
       include: {
-        user: { select: { firstname: true, lastname: true, country: true, profilePicture: true, createdAt: true } },
+        user: { 
+          select: { 
+            firstname: true, 
+            lastname: true, 
+            country: true, 
+            profilePicture: true, 
+            createdAt: true,
+            bio: true,
+            isVerified: true
+          } 
+        },
         portfolioVideos: { orderBy: { uploadedAt: "desc" } },
-        gigs: { where: { status: "ACTIVE" }, select: { id: true, title: true, pricing: true, deliveryTime: true } },
-        reviewsReceived: { take: 5, orderBy: { createdAt: "desc" }, include: { client: { select: { firstname: true, lastname: true } } } },
+        gigs: { 
+          where: { status: "ACTIVE" }, 
+          select: { 
+            id: true, 
+            title: true, 
+            pricing: true, 
+            deliveryTime: true,
+            description: true,
+            category: true,
+            thumbnailUrl: true
+          } 
+        },
+        reviewsReceived: { 
+          take: 5, 
+          orderBy: { createdAt: "desc" }, 
+          include: { 
+            client: { select: { firstname: true, lastname: true } } 
+          } 
+        },
       },
     });
 
     if (!freelancerProfile) {
       return next(new ApiError(404, "Freelancer profile not found"));
     }
-    if (!freelancerProfile.user.isActive) {
-      return next(new ApiError(404, "User account is deactivated"));
-    }
 
-    return res.status(200).json(new ApiResponse(200, freelancerProfile, "Public freelancer profile retrieved successfully"));
+    // Add the moved fields to the response
+    const response = {
+      ...freelancerProfile,
+      user: {
+        ...freelancerProfile.user,
+      }
+    };
+
+    return res.status(200).json(new ApiResponse(200, response, "Public freelancer profile retrieved successfully"));
   } catch (error) {
     console.error("Error retrieving public freelancer profile:", error);
     return next(new ApiError(500, "Failed to retrieve public freelancer profile", error.message));

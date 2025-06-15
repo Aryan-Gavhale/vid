@@ -1,4 +1,3 @@
-
 import express from "express";
 import {
   createJob,
@@ -20,6 +19,7 @@ import {
   unverifyJob,
   deleteJobAdmin,
   getAllApplicationsAdmin,
+  getActiveJobs,
 } from "../Controllers/job.controller.js";
 import { authenticateToken } from "../Middlewares/protect.middleware.js";
 import { restrictTo } from "../Middlewares/restrict.middleware.js";
@@ -68,6 +68,7 @@ router.get("/all", validateQuery(getJobsSchema), getAllJobs); // GET /api/v1/all
 router.get("/current", authenticateToken, getCurrentJobs); // GET /api/v1/current
 router.get("/applied", authenticateToken, getAppliedJobs); // GET /api/v1/applied
 router.get("/completed", authenticateToken, getCompletedJobs); // GET /api/v1/completed
+router.get("/active", authenticateToken, restrictTo(["FREELANCER"]), getActiveJobs); // GET /api/v1/active
 router.get("/:jobId", getJob); // GET /api/v1/:jobId
 
 // Protected routes (require authentication)
@@ -86,6 +87,12 @@ router.get("/:jobId/applications", restrictTo(["CLIENT"]), getJobApplications); 
 router.get('/:jobId/applications', authenticateToken, restrictTo('CLIENT'), getJobApplications);
 router.post('/:jobId/apply/accept',authenticateToken,validateBody(applicationActionSchema),restrictTo('CLIENT'),acceptApplication);
 router.post('/:jobId/apply/reject',authenticateToken,validateBody(applicationActionSchema),restrictTo('CLIENT'),rejectApplication);
+
+// Application routes
+router.post("/:jobId/apply", authenticateToken, restrictTo("FREELANCER"), applyJob);
+router.get("/:jobId/apply/status", authenticateToken, checkApplicationStatus);
+router.post("/:jobId/accept", authenticateToken, restrictTo("CLIENT"), acceptApplication);
+router.post("/:jobId/reject", authenticateToken, restrictTo("CLIENT"), rejectApplication);
 
 // Admin routes
 router.use("/admin", restrictTo(["ADMIN", "SUPERADMIN"]));

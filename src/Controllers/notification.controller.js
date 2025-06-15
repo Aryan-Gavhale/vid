@@ -23,13 +23,13 @@ const createNotification = async (req, res, next) => {
     }
 
     // Restrict to admins or system-initiated notifications (adjust as needed)
-    if (req.user.role !== "ADMIN" && creatorId !== userId) {
+    if (req.user.role !== "ADMIN" && creatorId !== userId && type !== "SYSTEM") {
       return next(new ApiError(403, "Forbidden: Only admins can create notifications for others"));
     }
 
     // Validate entity if provided
     if (entityType && entityId) {
-      const validEntities = ["ORDER", "MESSAGE", "REVIEW", "TRANSACTION"];
+      const validEntities = ["ORDER", "MESSAGE", "REVIEW", "TRANSACTION", "APPLICATION"];
       if (!validEntities.includes(entityType)) {
         return next(new ApiError(400, `Invalid entity type. Allowed: ${validEntities.join(", ")}`));
       }
@@ -67,8 +67,11 @@ const getNotifications = async (req, res, next) => {
     const skip = (parseInt(page) - 1) * parseInt(limit);
 
     const where = {
-      userId,
-      expiresAt: { gte: new Date() }, // Only active notifications
+      userId: parseInt(userId), // Ensure we're filtering by the current user's ID
+      OR: [
+        { expiresAt: { gte: new Date() } },  // Active notifications
+        { expiresAt: null }  // Notifications that never expire
+      ]
     };
     if (type) where.type = type;
     if (isRead !== undefined) where.isRead = isRead === "true";
@@ -76,12 +79,22 @@ const getNotifications = async (req, res, next) => {
     const [notifications, total] = await Promise.all([
       prisma.notification.findMany({
         where,
-        include: { user: { select: { firstname: true, lastname: true } } },
+        include: { 
+          user: { 
+            select: { 
+              firstname: true, 
+              lastname: true 
+            } 
+          }
+        },
+        orderBy: [
+          { priority: 'desc' },  // Show high priority first
+          { createdAt: 'desc' }  // Then most recent
+        ],
         skip,
-        take: parseInt(limit),
-        orderBy: { createdAt: "desc" },
+        take: parseInt(limit)
       }),
-      prisma.notification.count({ where }),
+      prisma.notification.count({ where })
     ]);
 
     return res.status(200).json(
@@ -111,7 +124,7 @@ const markNotificationAsRead = async (req, res, next) => {
       where: { id: parseInt(notificationId) },
     });
     if (!notification || notification.userId !== userId) {
-      return next(new ApiError(404, "Notification not found or you don’t own it"));
+      return next(new ApiError(404, "Notification not found or you don't own it"));
     }
     if (notification.isRead) {
       return next(new ApiError(400, "Notification is already marked as read"));
@@ -145,7 +158,7 @@ const deleteNotification = async (req, res, next) => {
       where: { id: parseInt(notificationId) },
     });
     if (!notification || notification.userId !== userId) {
-      return next(new ApiError(404, "Notification not found or you don’t own it"));
+      return next(new ApiError(404, "Notification not found or you don't own it"));
     }
 
     await prisma.notification.delete({

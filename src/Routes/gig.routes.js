@@ -9,6 +9,7 @@ import {
   getGig,
   getFreelancerGigs,
   getAllGigs,
+  pauseGig,
 } from "../Controllers/gig.controller.js";
 import { authenticateToken } from "../Middlewares/protect.middleware.js";
 import { checkOwnership } from "../Middlewares/ownership.middlware.js";
@@ -27,6 +28,7 @@ router.put("/:gigId", checkOwnership("Gig", "gigId", "freelancerId"), updateGig)
 router.put("/draft/:gigId", checkOwnership("Gig", "gigId", "freelancerId"), updateGigDraft); // New endpoint for updating drafts
 router.delete("/:gigId", deleteGig);
 router.delete("/draft/:gigId", deleteGigDraft); // New endpoint for deleting drafts
+router.patch("/:gigId/pause", checkOwnership("Gig", "gigId", "freelancerId"), pauseGig);
 
 // Public route - AFTER specific routes
 router.get("/:gigId", getGig);

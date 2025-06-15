@@ -59,7 +59,19 @@ const registerUser = async (req, res, next) => {
           companyEmail: companyEmail || null,
           isProfileComplete: false,
           freelancerProfile: {
-            create: {},
+            create: {
+              totalJobs: 0,
+              totalHours: 0,
+              successRate: 0,
+              rating: 0,
+              totalEarnings: 0,
+              skills: [],
+              languages: [],
+              tools: [],
+              certifications: [],
+              availabilityStatus: "UNAVAILABLE",
+              experienceLevel: "ENTRY"
+            },
           },
         },
         include: { freelancerProfile: true },
@@ -630,7 +642,6 @@ const getAllFreelancers = async (req, res, next) => {
           profilePicture: true,
           createdAt: true,
           updatedAt: true,
-          rating: true,
           freelancerProfile: {
             select: {
               city: true,
@@ -653,17 +664,33 @@ const getAllFreelancers = async (req, res, next) => {
               equipmentOther: true,
               totalEarnings: true,
               rating: true,
+              totalJobs: true,
+              totalHours: true,
+              successRate: true,
               software: {
                 select: { id: true, name: true, icon: true, level: true },
               },
               portfolioVideos: {
-                select: { id: true, title: true, videoUrl: true},
+                select: { 
+                  id: true, 
+                  title: true, 
+                  videoUrl: true, 
+                  description: true,
+                  category: true,
+                  uploadedAt: true
+                },
               },
               gigs: {
-                select: { id: true, title: true, pricing: true, description: true, deliveryTime: true },
-              },
-              userBadges: {
-                select: { id: true, badgeId: true, isVisible: true },
+                select: { 
+                  id: true, 
+                  title: true, 
+                  description: true, 
+                  pricing: true,
+                  deliveryTime: true,
+                  thumbnailUrl: true,
+                  category: true,
+                  status: true
+                },
               },
             },
           },
@@ -702,7 +729,7 @@ const getAllFreelancers = async (req, res, next) => {
       equipmentLighting: freelancer.freelancerProfile?.equipmentLighting || "",
       equipmentOther: freelancer.freelancerProfile?.equipmentOther || "",
       totalEarnings: freelancer.freelancerProfile?.totalEarnings || 0,
-      rating: freelancer.freelancerProfile?.rating || freelancer.rating || 0,
+      rating: freelancer.freelancerProfile?.rating || 0,
       createdAt: freelancer.createdAt,
       updatedAt: freelancer.updatedAt,
       software: freelancer.freelancerProfile?.software || [],
@@ -775,10 +802,26 @@ const getFreelancerById = async (req, res, next) => {
               select: { id: true, name: true, icon: true, level: true },
             },
             portfolioVideos: {
-              select: { id: true, title: true, url: true, thumbnail: true },
+              select: { 
+                id: true, 
+                title: true, 
+                videoUrl: true, 
+                description: true,
+                category: true,
+                uploadedAt: true
+              },
             },
             gigs: {
-              select: { id: true, title: true, price: true, description: true, deliveryTime: true },
+              select: { 
+                id: true, 
+                title: true, 
+                description: true, 
+                pricing: true,
+                deliveryTime: true,
+                thumbnailUrl: true,
+                category: true,
+                status: true
+              },
             },
             userBadges: {
               select: { id: true, badgeId: true, isVisible: true },

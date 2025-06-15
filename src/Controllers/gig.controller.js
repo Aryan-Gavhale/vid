@@ -558,14 +558,46 @@ const getAllGigs = async (req, res, next) => {
   }
 };
 
+const pauseGig = async (req, res, next) => {
+  try {
+    const { gigId } = req.params;
+    const gig = await prisma.gig.findUnique({ 
+      where: { id: parseInt(gigId) },
+      include: { freelancer: true }
+    });
+    
+    if (!gig) return next(new ApiError(404, "Gig not found"));
+    
+    // Check if user is the owner of this gig
+    const freelancerProfile = await prisma.freelancerProfile.findUnique({
+      where: { userId: req.user.id },
+    });
+    
+    if (!freelancerProfile || gig.freelancerId !== freelancerProfile.id) {
+      return next(new ApiError(403, "Forbidden: You can only update your own gigs"));
+    }
+    
+    const newStatus = gig.status === "PAUSED" ? "ACTIVE" : "PAUSED";
+    const updated = await prisma.gig.update({
+      where: { id: parseInt(gigId) },
+      data: { status: newStatus },
+    });
+    
+    return res.status(200).json(new ApiResponse(200, updated, `Gig ${newStatus === "PAUSED" ? "paused" : "activated"} successfully`));
+  } catch (err) {
+    return next(new ApiError(500, "Failed to update gig status", err.message));
+  }
+}
+
 export {
   createGig,
-  createGigDraft, // Export new draft function
+  createGigDraft,
   updateGig,
-  updateGigDraft, // Export new draft update function
+  updateGigDraft,
   deleteGig,
-  deleteGigDraft, // Export new draft delete function
+  deleteGigDraft,
   getGig,
   getFreelancerGigs,
   getAllGigs,
+  pauseGig
 };
