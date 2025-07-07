@@ -73,8 +73,6 @@ model User {
   freelancerProfile FreelancerProfile?
   ordersAsClient    Order[]           @relation("ClientOrders")
   reviewsGiven      Review[]          @relation("ReviewsByClient")
-  messagesSent      Message[]         @relation("Sender")
-  messagesReceived  Message[]         @relation("Receiver")
   transactions      Transaction[]
   notifications     Notification[]
   disputesRaised    Dispute[]         @relation("RaisedBy")
@@ -92,6 +90,7 @@ model User {
   acceptedJobsId    Int[]             @map("accepted_jobs_id")
   rejectedJobsId    Int[]             @map("rejected_jobs_id")
   applications      Application[]     @relation("FreelancerApplications")
+  messages    Message[]  @relation("UserMessages")
   @@index([email])
 }
 
@@ -194,6 +193,7 @@ model Job {
   freelancer        User?          @relation("Freelancer", fields: [freelancerId], references: [id], onDelete: SetNull)
   applications      Application[]
   milestones        Milestone[]    // Relation for milestones
+  messages    Message[]  @relation("JobMessages")
   @@index([postedById])
   @@index([freelancerId])
   @@index([status])
@@ -298,7 +298,6 @@ model Order {
   freelancer        FreelancerProfile @relation("FreelancerOrders", fields: [freelancerId], references: [id], onDelete: Cascade)
   transactions      Transaction[]
   review            Review?
-  messages          Message[]
   dispute           Dispute?
 }
 
@@ -383,39 +382,21 @@ enum ModerationStatus {
   REJECTED
 }
 
-// Message model (Unchanged)
+// Message model (Updated)
 model Message {
-  id            Int       @id @default(autoincrement())
-  senderId      Int       @map("sender_id")
-  receiverId    Int       @map("receiver_id")
-  orderId       Int?      @map("order_id")
-  content       String
-  subject       String?
-  isRead        Boolean   @default(false)
-  isFlagged     Boolean   @default(false)
-  flaggedReason String?
-  parentId      Int?      @map("parent_id")
-  attachments   MessageAttachment[]
-  sentAt        DateTime  @default(now())
-  readAt        DateTime?
-  deletedAt     DateTime?
+  id          String    @id @default(uuid())
+  jobId       Int
+  senderId    Int
+  content     String?
+  attachments Json[]    @default([])
+  timestamp   DateTime  @default(now())
+  job         Job       @relation("JobMessages", fields: [jobId], references: [id])
+  sender      User      @relation("UserMessages", fields: [senderId], references: [id])
 
-  sender        User      @relation("Sender", fields: [senderId], references: [id])
-  receiver      User      @relation("Receiver", fields: [receiverId], references: [id])
-  order         Order?    @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  parent        Message?  @relation("Replies", fields: [parentId], references: [id])
-  replies       Message[] @relation("Replies")
-}
-
-model MessageAttachment {
-  id          Int       @id @default(autoincrement())
-  messageId   Int       @map("message_id")
-  fileUrl     String
-  fileType    String
-  fileName    String?
-  uploadedAt  DateTime  @default(now())
-
-  message     Message   @relation(fields: [messageId], references: [id], onDelete: Cascade)
+  // Reply support
+  replyTo     String?   // The ID of the message being replied to
+  reply       Message?  @relation("MessageReplies", fields: [replyTo], references: [id])
+  replies     Message[] @relation("MessageReplies")
 }
 
 // Category model (Unchanged)

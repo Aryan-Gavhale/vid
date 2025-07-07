@@ -30,7 +30,7 @@ const sendMessage = async (req, res, next) => {
         include: { client: true, freelancer: true },
       });
       if (!order || (order.clientId !== senderId && order.freelancer.userId !== senderId)) {
-        return next(new ApiError(404, "Order not found or you don’t have access"));
+        return next(new ApiError(404, "Order not found or you don't have access"));
       }
     }
 
@@ -38,7 +38,7 @@ const sendMessage = async (req, res, next) => {
     if (parentId) {
       const parentMessage = await prisma.message.findUnique({ where: { id: parseInt(parentId) } });
       if (!parentMessage || (parentMessage.senderId !== senderId && parentMessage.receiverId !== senderId)) {
-        return next(new ApiError(404, "Parent message not found or you don’t have access"));
+        return next(new ApiError(404, "Parent message not found or you don't have access"));
       }
     }
 
@@ -101,7 +101,7 @@ const getMessages = async (req, res, next) => {
         include: { client: true, freelancer: true },
       });
       if (!order || (order.clientId !== userId && order.freelancer.userId !== userId)) {
-        return next(new ApiError(404, "Order not found or you don’t have access"));
+        return next(new ApiError(404, "Order not found or you don't have access"));
       }
       where.orderId = parseInt(orderId);
     }
@@ -146,6 +146,88 @@ const getMessages = async (req, res, next) => {
   } catch (error) {
     console.error("Error retrieving messages:", error);
     return next(new ApiError(500, "Failed to retrieve messages", error.message));
+  }
+};
+
+const getMessagesByJob = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return next(new ApiError(401, "Unauthorized: User not authenticated"));
+    }
+    const userId = req.user.id;
+    const { jobId } = req.params;
+
+    // Verify user has access to the job
+    const job = await prisma.job.findUnique({
+      where: { id: parseInt(jobId) },
+      select: { postedById: true, freelancerId: true },
+    });
+
+    if (!job) {
+      return next(new ApiError(404, "Job not found"));
+    }
+
+    if (userId !== job.postedById && userId !== job.freelancerId) {
+      return next(new ApiError(403, "Unauthorized access to job messages"));
+    }
+
+    const messages = await prisma.message.findMany({
+      where: {
+        jobId: parseInt(jobId),
+        deletedAt: null, // Exclude soft-deleted messages
+      },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            profilePicture: true,
+          },
+        },
+        attachments: true,
+        reactions: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                firstname: true,
+                lastname: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: { timestamp: 'asc' },
+    });
+
+    const formattedMessages = messages.map(message => ({
+      id: message.id,
+      jobId: message.jobId,
+      content: message.content,
+      sender: {
+        id: message.sender.id,
+        name: `${message.sender.firstname} ${message.sender.lastname}`,
+        avatar: message.sender.profilePicture || null,
+      },
+      attachments: message.attachments,
+      reactions: message.reactions.map(reaction => ({
+        id: reaction.id,
+        emoji: reaction.emoji,
+        user: {
+          id: reaction.user.id,
+          name: `${reaction.user.firstname} ${reaction.user.lastname}`,
+        },
+      })),
+      timestamp: message.timestamp.toISOString(),
+    }));
+
+    return res.status(200).json(
+      new ApiResponse(200, formattedMessages, "Messages retrieved successfully")
+    );
+  } catch (error) {
+    console.error("Error retrieving job messages:", error);
+    return next(new ApiError(500, "Failed to retrieve job messages", error.message));
   }
 };
 
@@ -195,7 +277,7 @@ const deleteMessage = async (req, res, next) => {
       where: { id: parseInt(messageId) },
     });
     if (!message || (message.senderId !== userId && message.receiverId !== userId)) {
-      return next(new ApiError(404, "Message not found or you don’t have access"));
+      return next(new ApiError(404, "Message not found or you don't have access"));
     }
     if (message.deletedAt) {
       return next(new ApiError(400, "Message is already deleted"));
@@ -227,7 +309,7 @@ const flagMessage = async (req, res, next) => {
       where: { id: parseInt(messageId) },
     });
     if (!message || (message.senderId !== userId && message.receiverId !== userId)) {
-      return next(new ApiError(404, "Message not found or you don’t have access"));
+      return next(new ApiError(404, "Message not found or you don't have access"));
     }
     if (message.isFlagged) {
       return next(new ApiError(400, "Message is already flagged"));
@@ -258,4 +340,130 @@ const flagMessage = async (req, res, next) => {
   }
 };
 
-export { sendMessage, getMessages, markMessageAsRead, deleteMessage, flagMessage };
+const addReaction = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return next(new ApiError(401, "Unauthorized: User not authenticated"));
+    }
+
+    const { messageId } = req.params;
+    const { emoji } = req.body;
+    const userId = req.user.id;
+
+    const message = await prisma.message.findUnique({
+      where: { id: messageId },
+      select: { reactions: true },
+    });
+
+    if (!message) {
+      return next(new ApiError(404, "Message not found"));
+    }
+
+    let reactions = message.reactions || [];
+    const reactionIndex = reactions.findIndex((r) => r.emoji === emoji);
+
+    if (reactionIndex > -1) {
+      const reaction = reactions[reactionIndex];
+      if (reaction.users.includes(userId)) {
+        reaction.users = reaction.users.filter((u) => u !== userId);
+        reaction.count--;
+        if (reaction.count === 0) {
+          reactions.splice(reactionIndex, 1);
+        }
+      } else {
+        reaction.users.push(userId);
+        reaction.count++;
+      }
+    } else {
+      reactions.push({ emoji, count: 1, users: [userId] });
+    }
+
+    const updatedMessage = await prisma.message.update({
+      where: { id: messageId },
+      data: { reactions },
+      select: { reactions: true },
+    });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, updatedMessage, "Reaction updated successfully"));
+  } catch (error) {
+    console.error("Error adding reaction:", error);
+    return next(new ApiError(500, "Failed to add reaction", error.message));
+  }
+};
+
+
+
+const getMessagesByJobId = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return next(new ApiError(401, "Unauthorized: User not authenticated"));
+    }
+
+    const { jobId } = req.params;
+    const job = await prisma.job.findUnique({
+      where: { id: parseInt(jobId) },
+      select: { postedById: true, freelancerId: true },
+    });
+
+    if (!job) {
+      return next(new ApiError(404, "Job not found"));
+    }
+
+    if (req.user.id !== job.postedById && req.user.id !== job.freelancerId) {
+      return next(new ApiError(403, "Unauthorized to view messages for this job"));
+    }
+
+    const messages = await prisma.message.findMany({
+      where: { jobId: parseInt(jobId) },
+      orderBy: { timestamp: 'asc' },
+      include: {
+        sender: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true,
+            profilePicture: true,
+          },
+        },
+      },
+    });
+
+    const formattedMessages = messages.map((message) => ({
+      id: message.id,
+      jobId: message.jobId,
+      sender: {
+        id: message.sender.id,
+        name: `${message.sender.firstname} ${message.sender.lastname}`,
+        avatar: message.sender.profilePicture || null,
+      },
+      content: message.content,
+      attachments: message.attachments,
+      replyTo: message.replyTo,
+      reactions: message.reactions || [],
+      timestamp: message.timestamp.toISOString(),
+      isDeleted: message.isDeleted || false,
+    }));
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, formattedMessages, "Messages fetched successfully"));
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    return next(new ApiError(500, "Failed to fetch messages", error.message));
+  }
+};
+
+export {
+  sendMessage,
+  getMessages,
+  getMessagesByJob,
+  markMessageAsRead,
+  deleteMessage,
+  flagMessage,
+  getMessagesByJobId,
+  addReaction,
+  
+
+};

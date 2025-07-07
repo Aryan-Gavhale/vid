@@ -1,11 +1,12 @@
-// src/routes/messageRoutes.js
 import express from "express";
 import {
   sendMessage,
   getMessages,
+  getMessagesByJobId,
   markMessageAsRead,
   deleteMessage,
   flagMessage,
+  addReaction,
 } from "../Controllers/message.controller.js";
 import { authenticateToken } from "../Middlewares/protect.middleware.js";
 import { validateBody, validateQuery } from "../Middlewares/validate.middleware.js";
@@ -26,6 +27,10 @@ const flagMessageSchema = Joi.object({
   reason: Joi.string().optional(),
 });
 
+const reactionSchema = Joi.object({
+  emoji: Joi.string().required(),
+});
+
 const getMessagesSchema = Joi.object({
   orderId: Joi.number().integer().optional(),
   receiverId: Joi.number().integer().optional(),
@@ -38,8 +43,10 @@ router.use(authenticateToken);
 
 router.post("/", uploadMultiple("attachments", 5), validateBody(sendMessageSchema), sendMessage);
 router.get("/", validateQuery(getMessagesSchema), getMessages);
+router.get("/job/:jobId", getMessagesByJobId);
 router.put("/:messageId/read", markMessageAsRead);
 router.delete("/:messageId", deleteMessage);
 router.post("/:messageId/flag", validateBody(flagMessageSchema), flagMessage);
+router.post("/:messageId/reactions", validateBody(reactionSchema), addReaction);
 
 export default router;
