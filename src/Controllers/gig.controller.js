@@ -1,14 +1,13 @@
-// src/controllers/gigController.js
 import { ApiError } from "../Utils/ApiError.js";
 import { ApiResponse } from "../Utils/ApiResponse.js";
 import prisma from "../prismaClient.js";
 import multer from "multer";
 import path from "path";
 
-// Configure multer for file uploads
+// Multer configuration (unchanged)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/"); // Ensure this folder exists
+    cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + path.extname(file.originalname));
@@ -31,6 +30,7 @@ const upload = multer({
   { name: "sampleMedia", maxCount: 3 },
 ]);
 
+// Existing createGig, createGigDraft, updateGig, updateGigDraft, deleteGig, deleteGigDraft unchanged
 const createGig = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -48,23 +48,19 @@ const createGig = async (req, res, next) => {
         tags, requirements, faqs, packageDetails,
       } = req.body;
 
-      // Validate required fields
       if (!title || !pricing || !deliveryTime) {
         return next(new ApiError(400, "Missing required fields: title, pricing, and deliveryTime are mandatory."));
       }
 
-      // Parse JSON fields
       const parsedPricing = JSON.parse(pricing);
       const parsedTags = tags ? JSON.parse(tags) : [];
       const parsedFaqs = faqs ? JSON.parse(faqs) : [];
       const parsedPackageDetails = packageDetails ? JSON.parse(packageDetails) : [];
 
-      // Validate pricing
       if (!Array.isArray(parsedPricing) || parsedPricing.length === 0) {
         return next(new ApiError(400, "Pricing must be a non-empty array of objects."));
       }
 
-      // Validate deliveryTime
       const parsedDeliveryTime = parseInt(deliveryTime);
       if (isNaN(parsedDeliveryTime) || parsedDeliveryTime <= 0) {
         return next(new ApiError(400, "Delivery time must be a positive integer."));
@@ -77,18 +73,13 @@ const createGig = async (req, res, next) => {
         return next(new ApiError(404, "Freelancer profile not found. Create a profile first."));
       }
 
-      // Handle thumbnail and sample media
       const sampleMediaData = [];
-      
-      // Add thumbnail as a special sample media entry
       if (req.files?.thumbnail?.[0]) {
         sampleMediaData.push({
           mediaUrl: `/uploads/${req.files.thumbnail[0].filename}`,
           mediaType: req.files.thumbnail[0].mimetype.split("/")[1] === "mp4" ? "video" : "thumbnail",
         });
       }
-
-      // Add other sample media
       if (req.files?.sampleMedia) {
         req.files.sampleMedia.forEach(file => {
           sampleMediaData.push({
@@ -126,7 +117,6 @@ const createGig = async (req, res, next) => {
   });
 };
 
-// New function: Create Gig Draft
 const createGigDraft = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -144,7 +134,6 @@ const createGigDraft = async (req, res, next) => {
         tags, requirements, faqs, packageDetails,
       } = req.body;
 
-      // Minimal validation for drafts
       if (!title) {
         return next(new ApiError(400, "Title is required for drafts."));
       }
@@ -207,7 +196,6 @@ const createGigDraft = async (req, res, next) => {
   });
 };
 
-// New function: Update Gig Draft
 const updateGigDraft = async (req, res, next) => {
   upload(req, res, async (err) => {
     if (err) {
@@ -240,7 +228,6 @@ const updateGigDraft = async (req, res, next) => {
         return next(new ApiError(400, "This gig is not a draft and cannot be updated as one."));
       }
 
-      // Minimal validation: title must still exist
       if (!title) {
         return next(new ApiError(400, "Title is required for drafts."));
       }
@@ -298,7 +285,6 @@ const updateGigDraft = async (req, res, next) => {
   });
 };
 
-// New function: Delete Gig Draft
 const deleteGigDraft = async (req, res, next) => {
   try {
     if (!req.user || !req.user.id) {
@@ -335,70 +321,92 @@ const deleteGigDraft = async (req, res, next) => {
 };
 
 const updateGig = async (req, res, next) => {
-  try {
-    if (!req.user || !req.user.id) {
-      return next(new ApiError(401, "Unauthorized: User not authenticated"));
-    }
-    const freelancerId = req.user.id;
-    const { gigId } = req.params;
-
-    const {
-      title, description, category, pricing, deliveryTime, revisionCount,
-      tags, requirements, faqs, packageDetails, sampleMedia,
-    } = req.body;
-
-    const gig = await prisma.gig.findUnique({
-      where: { id: parseInt(gigId) },
-      include: { freelancer: true },
-    });
-    if (!gig) {
-      return next(new ApiError(404, "Gig not found."));
-    }
-    if (gig.freelancer.userId !== freelancerId) {
-      return next(new ApiError(403, "Forbidden: You can only update your own gigs."));
+  upload(req, res, async (err) => {
+    if (err) {
+      return next(new ApiError(400, err.message));
     }
 
-    // Validate updates
-    if (pricing && (typeof pricing !== "object" || Object.keys(pricing).length === 0)) {
-      return next(new ApiError(400, "Pricing must be a non-empty JSON object."));
-    }
-    if (deliveryTime && (isNaN(parseInt(deliveryTime)) || parseInt(deliveryTime) <= 0)) {
-      return next(new ApiError(400, "Delivery time must be a positive integer."));
-    }
+    try {
+      if (!req.user || !req.user.id) {
+        return next(new ApiError(401, "Unauthorized: User not authenticated"));
+      }
+      const freelancerId = req.user.id;
+      const { gigId } = req.params;
 
-    const updatedGig = await prisma.gig.update({
-      where: { id: parseInt(gigId) },
-      data: {
-        title: title !== undefined ? title : gig.title,
-        description: description !== undefined ? description : gig.description,
-        category: category !== undefined ? category : gig.category,
-        pricing: pricing !== undefined ? pricing : gig.pricing,
-        deliveryTime: deliveryTime ? parseInt(deliveryTime) : gig.deliveryTime,
-        revisionCount: revisionCount !== undefined ? parseInt(revisionCount) : gig.revisionCount,
-        tags: tags !== undefined ? (Array.isArray(tags) ? tags : tags ? [tags] : []) : gig.tags,
-        requirements: requirements !== undefined ? requirements : gig.requirements,
-        faqs: faqs !== undefined ? faqs : gig.faqs,
-        packageDetails: packageDetails !== undefined ? packageDetails : gig.packageDetails,
-        sampleMedia: sampleMedia ? {
-          deleteMany: {},
-          create: sampleMedia.map(media => ({
-            mediaUrl: media.mediaUrl,
-            mediaType: media.mediaType,
-            title: media.title,
-            description: media.description,
-          })),
-        } : undefined,
-      },
-      include: { sampleMedia: true },
-    });
+      const {
+        title, description, category, pricing, deliveryTime, revisionCount,
+        tags, requirements, faqs, packageDetails,
+      } = req.body;
 
-    return res.status(200).json(
-      new ApiResponse(200, updatedGig, "Gig updated successfully")
-    );
-  } catch (error) {
-    console.error("Error updating gig:", error);
-    return next(new ApiError(500, "Failed to update gig", error.message));
-  }
+      const gig = await prisma.gig.findUnique({
+        where: { id: parseInt(gigId) },
+        include: { freelancer: true },
+      });
+      if (!gig) {
+        return next(new ApiError(404, "Gig not found."));
+      }
+      if (gig.freelancer.userId !== freelancerId) {
+        return next(new ApiError(403, "Forbidden: You can only update your own gigs."));
+      }
+
+      const parsedPricing = pricing ? JSON.parse(pricing) : gig.pricing;
+      const parsedTags = tags ? JSON.parse(tags) : gig.tags;
+      const parsedFaqs = faqs ? JSON.parse(faqs) : gig.faqs;
+      const parsedPackageDetails = packageDetails ? JSON.parse(packageDetails) : gig.packageDetails;
+      const parsedDeliveryTime = deliveryTime ? parseInt(deliveryTime) : gig.deliveryTime;
+
+      if (parsedPricing && (!Array.isArray(parsedPricing) || parsedPricing.length === 0)) {
+        return next(new ApiError(400, "Pricing must be a non-empty array of objects."));
+      }
+      if (parsedDeliveryTime && (isNaN(parsedDeliveryTime) || parsedDeliveryTime <= 0)) {
+        return next(new ApiError(400, "Delivery time must be a positive integer."));
+      }
+
+      const sampleMediaData = [];
+      if (req.files?.thumbnail?.[0]) {
+        sampleMediaData.push({
+          mediaUrl: `/uploads/${req.files.thumbnail[0].filename}`,
+          mediaType: req.files.thumbnail[0].mimetype.split("/")[1] === "mp4" ? "video" : "thumbnail",
+        });
+      }
+      if (req.files?.sampleMedia) {
+        req.files.sampleMedia.forEach(file => {
+          sampleMediaData.push({
+            mediaUrl: `/uploads/${file.filename}`,
+            mediaType: file.mimetype.split("/")[1] === "mp4" ? "video" : "image",
+          });
+        });
+      }
+
+      const updatedGig = await prisma.gig.update({
+        where: { id: parseInt(gigId) },
+        data: {
+          title: title !== undefined ? title : gig.title,
+          description: description !== undefined ? description : gig.description,
+          category: category !== undefined ? category : gig.category,
+          pricing: parsedPricing,
+          deliveryTime: parsedDeliveryTime,
+          revisionCount: revisionCount ? parseInt(revisionCount) : gig.revisionCount,
+          tags: parsedTags,
+          requirements: requirements !== undefined ? requirements : gig.requirements,
+          faqs: parsedFaqs,
+          packageDetails: parsedPackageDetails,
+          sampleMedia: sampleMediaData.length > 0 ? {
+            deleteMany: {},
+            create: sampleMediaData,
+          } : undefined,
+        },
+        include: { sampleMedia: true },
+      });
+
+      return res.status(200).json(
+        new ApiResponse(200, updatedGig, "Gig updated successfully")
+      );
+    } catch (error) {
+      console.error("Error updating gig:", error);
+      return next(new ApiError(500, "Failed to update gig", error.message));
+    }
+  });
 };
 
 const deleteGig = async (req, res, next) => {
@@ -420,8 +428,9 @@ const deleteGig = async (req, res, next) => {
       return next(new ApiError(403, "Forbidden: You can only delete your own gigs."));
     }
 
-    await prisma.gig.delete({
+    await prisma.gig.update({
       where: { id: parseInt(gigId) },
+      data: { status: "DELETED" }, // Soft delete
     });
 
     return res.status(200).json(
@@ -450,6 +459,28 @@ const getGig = async (req, res, next) => {
             user: { select: { firstname: true, lastname: true, email: true } },
           },
         },
+        orders: {
+          where: { status: { not: "CANCELLED" } },
+          select: {
+            id: true,
+            client: { select: { firstname: true, lastname: true } },
+            createdAt: true,
+            totalPrice: true,
+            status: true,
+          },
+          take: 5, // Limit to recent 5 orders
+          orderBy: { createdAt: "desc" },
+        },
+        reviews: {
+          select: {
+            rating: true,
+            comment: true,
+            createdAt: true,
+            client: { select: { firstname: true, lastname: true } },
+          },
+          take: 5, // Limit to recent 5 reviews
+          orderBy: { createdAt: "desc" },
+        },
       },
     });
     if (!gig) {
@@ -461,8 +492,13 @@ const getGig = async (req, res, next) => {
       data: { views: gig.views + 1 },
     });
 
+    // Calculate average rating
+    const averageRating = gig.reviews.length > 0
+      ? gig.reviews.reduce((sum, review) => sum + review.rating, 0) / gig.reviews.length
+      : 0;
+
     return res.status(200).json(
-      new ApiResponse(200, gig, "Gig retrieved successfully")
+      new ApiResponse(200, { ...gig, averageRating }, "Gig retrieved successfully")
     );
   } catch (error) {
     console.error("Error retrieving gig:", error);
@@ -470,9 +506,66 @@ const getGig = async (req, res, next) => {
   }
 };
 
+const getGigAnalytics = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      return next(new ApiError(401, "Unauthorized: User not authenticated"));
+    }
+    const freelancerId = req.user.id;
+    const { gigId } = req.params;
+
+    const gig = await prisma.gig.findUnique({
+      where: { id: parseInt(gigId) },
+      include: {
+        freelancer: true,
+        orders: {
+          where: { status: { not: "CANCELLED" } },
+          select: { id: true, createdAt: true, totalPrice: true },
+        },
+        reviews: { select: { rating: true } },
+      },
+    });
+    if (!gig) {
+      return next(new ApiError(404, "Gig not found."));
+    }
+    if (gig.freelancer.userId !== freelancerId) {
+      return next(new ApiError(403, "Forbidden: You can only view analytics for your own gigs."));
+    }
+
+    const totalViews = gig.views;
+    const totalInquiries = 0; // TODO: Implement inquiry count based on gigId
+    const totalPurchases = gig.orders.length;
+    const averageRating = gig.reviews.length > 0
+      ? gig.reviews.reduce((sum, review) => sum + review.rating, 0) / gig.reviews.length
+      : 0;
+    const repeatClients = await prisma.order.groupBy({
+      by: ["clientId"],
+      where: { gigId: parseInt(gigId), status: { not: "CANCELLED" } },
+      _count: { clientId: true },
+    }).then(groups => groups.filter(g => g._count.clientId > 1).length);
+    const conversionRate = totalViews > 0 ? (totalPurchases / totalViews) * 100 : 0;
+
+    return res.status(200).json(
+      new ApiResponse(200, {
+        totalViews,
+        totalInquiries,
+        totalPurchases,
+        averageRating,
+        repeatClients,
+        conversionRate: parseFloat(conversionRate.toFixed(1)),
+        revenue: gig.revenue,
+        responseTime: gig.responseTime,
+        completionRate: gig.completionRate,
+      }, "Gig analytics retrieved successfully")
+    );
+  } catch (error) {
+    console.error("Error retrieving gig analytics:", error);
+    return next(new ApiError(500, "Failed to retrieve gig analytics", error.message));
+  }
+};
+
 const getFreelancerGigs = async (req, res, next) => {
   try {
-    console.log("Request user:", req.user); // Debug
     if (!req.user || !req.user.id) {
       return next(new ApiError(401, "Unauthorized: User not authenticated"));
     }
@@ -481,7 +574,6 @@ const getFreelancerGigs = async (req, res, next) => {
     const freelancerProfile = await prisma.freelancerProfile.findUnique({
       where: { userId },
     });
-    console.log("Freelancer profile:", freelancerProfile); // Debug
     if (!freelancerProfile) {
       return next(new ApiError(404, "Freelancer profile not found"));
     }
@@ -490,7 +582,6 @@ const getFreelancerGigs = async (req, res, next) => {
       where: { freelancerId: freelancerProfile.id },
       include: { sampleMedia: true },
     });
-    console.log("Fetched gigs:", gigs); // Debug
 
     return res.status(200).json(
       new ApiResponse(200, gigs, "Freelancer gigs retrieved successfully")
@@ -568,7 +659,6 @@ const pauseGig = async (req, res, next) => {
     
     if (!gig) return next(new ApiError(404, "Gig not found"));
     
-    // Check if user is the owner of this gig
     const freelancerProfile = await prisma.freelancerProfile.findUnique({
       where: { userId: req.user.id },
     });
@@ -587,7 +677,7 @@ const pauseGig = async (req, res, next) => {
   } catch (err) {
     return next(new ApiError(500, "Failed to update gig status", err.message));
   }
-}
+};
 
 export {
   createGig,
@@ -597,6 +687,7 @@ export {
   deleteGig,
   deleteGigDraft,
   getGig,
+  getGigAnalytics,
   getFreelancerGigs,
   getAllGigs,
   pauseGig

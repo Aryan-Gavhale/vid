@@ -46,95 +46,112 @@ enum ExperienceLevel {
   EXPERT
 }
 
+// User model (partial, showing relevant changes)
 model User {
-  id            Int       @id @default(autoincrement())
-  auth0Id       String?   @unique
-  firstname     String
-  lastname      String
-  email         String    @unique
-  password      String?
-  country       String
-  username      String?   @unique
-  role          Role      @default(CLIENT)
-  profilePicture String?
-  bio           String?
-  company       String?
-  companyEmail  String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
-  isActive      Boolean   @default(true)
-  isProfileComplete Boolean @default(false)
-  lastNameChange DateTime?
-  isVerified     Boolean   @default(false)
-  totalJobs      Int      @default(0)
-  totalHours     Int      @default(0)
-  successRate    Float    @default(0)
-  rating         Float    @default(0)
-  freelancerProfile FreelancerProfile?
-  ordersAsClient    Order[]           @relation("ClientOrders")
-  reviewsGiven      Review[]          @relation("ReviewsByClient")
-  transactions      Transaction[]
-  notifications     Notification[]
-  disputesRaised    Dispute[]         @relation("RaisedBy")
-  jobs              Job[]             @relation("PostedBy")
-  freelancerJobs    Job[]             @relation("Freelancer")
+  id                 Int                  @id @default(autoincrement())
+  auth0Id            String?              @unique
+  firstname          String
+  lastname           String
+  email              String               @unique
+  password           String?
+  country            String
+  username           String?              @unique
+  role               Role                 @default(CLIENT)
+  profilePicture     String?
+  bio                String?
+  company            String?
+  companyEmail       String?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @default(now()) @updatedAt
+  isActive           Boolean              @default(true)
+  isProfileComplete  Boolean              @default(false)
+  lastNameChange     DateTime?
+  isVerified         Boolean              @default(false)
+  totalJobs          Int                  @default(0)
+  totalHours         Int                  @default(0)
+  successRate        Float                @default(0)
+  rating             Float                @default(0)
+  freelancerProfile  FreelancerProfile?
+  ordersAsClient     Order[]              @relation("ClientOrders")
+  invoices           Invoice[]            @relation("ClientInvoices") // Added for relation
+  reviewsGiven       Review[]             @relation("ReviewsByClient")
+  transactions       Transaction[]
+  notifications      Notification[]
+  disputesRaised     Dispute[]            @relation("RaisedBy")
+  jobs               Job[]                @relation("PostedBy")
+  freelancerJobs     Job[]                @relation("Freelancer")
   OrderStatusHistory OrderStatusHistory[]
-  Review            Review[]          @relation("ModeratedBy")
-  DisputeEvidence   DisputeEvidence[]
-  DisputeComment    DisputeComment[]
-  Dispute           Dispute[]         @relation("ResolvedBy")
-  referredReferrals Referral[]        @relation("Referrer")
-  receivedReferrals Referral[]        @relation("Referee")
-  Promotion         Promotion[]
-  appliedJobsId     Int[]             @map("applied_jobs_id")
-  acceptedJobsId    Int[]             @map("accepted_jobs_id")
-  rejectedJobsId    Int[]             @map("rejected_jobs_id")
-  applications      Application[]     @relation("FreelancerApplications")
-  messages    Message[]  @relation("UserMessages")
+  Review             Review[]             @relation("ModeratedBy")
+  DisputeEvidence    DisputeEvidence[]
+  DisputeComment     DisputeComment[]
+  Dispute            Dispute[]            @relation("ResolvedBy")
+  referredReferrals  Referral[]           @relation("Referrer")
+  receivedReferrals  Referral[]           @relation("Referee")
+  Promotion          Promotion[]
+  appliedJobsId      Int[]                @map("applied_jobs_id")
+  acceptedJobsId     Int[]                @map("accepted_jobs_id")
+  rejectedJobsId     Int[]                @map("rejected_jobs_id")
+  applications       Application[]        @relation("FreelancerApplications")
+  messages           Message[]            @relation("UserMessages")
+
   @@index([email])
 }
 
+// FreelancerProfile model (partial, showing relevant changes)
 model FreelancerProfile {
-  id                Int       @id @default(autoincrement())
-  userId            Int       @unique @map("user_id")
-  city              String?
-  state             String?
-  pinCode           String?
-  jobTitle          String?
-  overview          String?
-  skills            String[]
-  languages         String[]
-  socialLinks       Json?
-  portfolioVideos   PortfolioVideo[]
-  tools             String[]
-  equipmentCameras  String?
-  equipmentLenses   String?
-  equipmentLighting String?
-  equipmentOther    String?
-  certifications    String[]  @default([])
-  minimumRate       Float?
-  maximumRate       Float?
-  availabilityStatus Availability @default(UNAVAILABLE)
-  weeklyHours       Int?
-  hourlyRate        Float?
-  experienceLevel   ExperienceLevel @default(ENTRY)
-  totalEarnings     Float     @default(0.0)
-  rating            Float     @default(0.0)
-  totalJobs         Int       @default(0)
-  totalHours        Int       @default(0)
-  successRate       Float     @default(0)
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @default(now()) @updatedAt
-  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userBadges        UserBadge[]
-  services          Json?
-  gigs              Gig[]
-  orders            Order[]   @relation("FreelancerOrders")
-  reviewsReceived   Review[]  @relation("ReviewsForFreelancer")
-  paymentSettings   PaymentSetting[]
-  freelancerSkills  FreelancerSkill[]
-  software          FreelancerSoftware[]
+  id                  Int              @id @default(autoincrement())
+  userId              Int              @unique @map("user_id")
+  city                String?
+  state               String?
+  pinCode             String?
+  jobTitle            String?
+  overview            String?
+  skills              String[]
+  languages           String[]
+  socialLinks         Json?
+  portfolioVideos     PortfolioVideo[]
+  tools               String[]
+  equipmentCameras    String?
+  equipmentLenses     String?
+  equipmentLighting   String?
+  equipmentOther      String?
+  certifications      String[]         @default([])
+  minimumRate         Float?
+  maximumRate         Float?
+  availabilityStatus  Availability     @default(UNAVAILABLE)
+  weeklyHours         Int?
+  hourlyRate          Float?
+  experienceLevel     ExperienceLevel  @default(ENTRY)
+  totalEarnings       Float            @default(0.0)
+  rating              Float            @default(0.0)
+  totalJobs           Int              @default(0)
+  totalHours          Int              @default(0)
+  successRate         Float            @default(0)
+  orderCount          Int              @default(0)
+  activeOrders        Int              @default(0)
+  lastActiveAt        DateTime?
+  responseRate        Float?           @default(0.0)
+  cancellationRate    Float?           @default(0.0)
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @default(now()) @updatedAt
+  // New fields
+  lastModifiedBy      Int? // ID of user/admin who last updated
+  performanceScore    Float?           @default(0.0) // For ranking freelancers
+  maxConcurrentOrders Int              @default(10) // Limit on active orders
+
+  user             User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userBadges       UserBadge[]
+  services         Json?
+  gigs             Gig[]
+  orders           Order[]              @relation("FreelancerOrders")
+  invoices         Invoice[]            @relation("FreelancerInvoices")
+  reviewsReceived  Review[]             @relation("ReviewsForFreelancer")
+  paymentSettings  PaymentSetting[]
+  freelancerSkills FreelancerSkill[]
+  software         FreelancerSoftware[]
+
   @@index([userId])
+  @@index([performanceScore])
 }
 
 model Application {
@@ -147,53 +164,75 @@ model Application {
   updatedAt       DateTime @updatedAt
   job             Job      @relation(fields: [jobId], references: [id])
   freelancer      User     @relation("FreelancerApplications", fields: [freelancerId], references: [id])
+
   @@unique([jobId, freelancerId])
   @@index([freelancerId])
 }
 
 model Milestone {
-  id        Int      @id @default(autoincrement())
-  jobId     Int
-  name      String
-  deadline  DateTime
-  completed Boolean  @default(false)
-  job       Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  id             Int             @id @default(autoincrement())
+  orderId        Int             @map("order_id")
+  title          String
+  description    String?
+  dueDate        DateTime
+  status         MilestoneStatus @default(PENDING)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @default(now()) @updatedAt
+  completedAt    DateTime?
+  // New fields
+  progress       Int             @default(0) // Percentage completion
+  deliverables   Json? // Store deliverable details
+  lastModifiedBy Int? // ID of user/admin who last updated
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  Job   Job?  @relation(fields: [jobId], references: [id])
+  jobId Int?
+
+  @@index([orderId, status])
+}
+
+enum MilestoneStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  REJECTED
 }
 
 model Job {
-  id                Int            @id @default(autoincrement())
-  title             String
-  description       String
-  category          String[]
-  budgetMin         Float
-  budgetMax         Float
-  deadline          DateTime
-  jobDifficulty     JobDifficulty
-  projectLength     ProjectLength
+  id                  Int           @id @default(autoincrement())
+  title               String
+  description         String
+  category            String[]
+  budgetMin           Float
+  budgetMax           Float
+  deadline            DateTime
+  jobDifficulty       JobDifficulty
+  projectLength       ProjectLength
   keyResponsibilities String[]
-  requiredSkills    String[]
-  tools             String[]
-  scope             String
-  postedById        Int            @map("posted_by_id")
-  freelancerId      Int?           @map("freelancer_id")
-  status            JobStatus      @default(OPEN)
-  progress          Int            @default(0)
-  name              String
-  email             String
-  company           String?
-  note              String?
-  videoFileUrl      String?
-  rating            Float?         // For client feedback on completed jobs
-  createdAt         DateTime       @default(now())
-  updatedAt         DateTime       @default(now()) @updatedAt
-  isVerified        Boolean        @default(false) // Require admin verification
-  location          String         @default("Remote")
-  proposals         Int            @default(0)
-  postedBy          User           @relation("PostedBy", fields: [postedById], references: [id], onDelete: Cascade)
-  freelancer        User?          @relation("Freelancer", fields: [freelancerId], references: [id], onDelete: SetNull)
-  applications      Application[]
-  milestones        Milestone[]    // Relation for milestones
-  messages    Message[]  @relation("JobMessages")
+  requiredSkills      String[]
+  tools               String[]
+  scope               String
+  postedById          Int           @map("posted_by_id")
+  freelancerId        Int?          @map("freelancer_id")
+  status              JobStatus     @default(OPEN)
+  progress            Int           @default(0)
+  name                String
+  email               String
+  company             String?
+  note                String?
+  videoFileUrl        String?
+  rating              Float? // For client feedback on completed jobs
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @default(now()) @updatedAt
+  isVerified          Boolean       @default(false) // Require admin verification
+  location            String        @default("Remote")
+  proposals           Int           @default(0)
+  postedBy            User          @relation("PostedBy", fields: [postedById], references: [id], onDelete: Cascade)
+  freelancer          User?         @relation("Freelancer", fields: [freelancerId], references: [id], onDelete: SetNull)
+  applications        Application[]
+  milestones          Milestone[] // Relation for milestones
+  messages            Message[]     @relation("JobMessages")
+
   @@index([postedById])
   @@index([freelancerId])
   @@index([status])
@@ -201,41 +240,59 @@ model Job {
 
 // PortfolioVideo model (Enhanced)
 model PortfolioVideo {
-  id           Int       @id @default(autoincrement())
-  freelancerId Int       @map("freelancer_id")
+  id           Int               @id @default(autoincrement())
+  freelancerId Int               @map("freelancer_id")
   videoUrl     String
   title        String?
   description  String?
-  uploadedAt   DateTime  @default(now())
-  views        Int       @default(0) // New: Track views for portfolio stats
-  category     String?   // New: Category for portfolio stats
+  uploadedAt   DateTime          @default(now())
+  views        Int               @default(0) // New: Track views for portfolio stats
+  category     String? // New: Category for portfolio stats
   freelancer   FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
 }
 
 // Gig model (Unchanged)
 model Gig {
-  id            Int       @id @default(autoincrement())
-  freelancerId  Int       @map("freelancer_id")
-  title         String
-  description   String?
-  category      String?
-  pricing       Json // Or use GigPricing[] for typed structure
-  deliveryTime  Int?
-  revisionCount Int?
-  status        GigStatus @default(ACTIVE)
-  tags          String[]  @default([])
-  requirements  String?
-  thumbnailUrl  String?   // Dedicated thumbnail field
-  sampleMedia   GigSampleMedia[]
-  faqs          Json?     @default("[]")
-  packageDetails Json?    @default("[]")
-  isFeatured    Boolean   @default(false)
-  views         Int       @default(0)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id                Int              @id @default(autoincrement())
+  freelancerId      Int              @map("freelancer_id")
+  title             String
+  description       String?
+  category          String?
+  pricing           Json
+  deliveryTime      Int?
+  revisionCount     Int?
+  status            GigStatus        @default(ACTIVE)
+  tags              String[]         @default([])
+  requirements      String?
+  thumbnailUrl      String?
+  sampleMedia       GigSampleMedia[]
+  faqs              Json?            @default("[]")
+  packageDetails    Json?            @default("[]")
+  isFeatured        Boolean          @default(false)
+  views             Int              @default(0)
+  revenue           Float            @default(0.0)
+  responseTime      Float?
+  completionRate    Float?           @default(0.0)
+  orderCount        Int              @default(0)
+  lastOrderedAt     DateTime?
+  impressions       Int              @default(0)
+  clickThroughRate  Float?           @default(0.0)
+  isPromoted        Boolean          @default(false)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @default(now()) @updatedAt
+  // New fields
+  averageOrderValue Float?           @default(0.0) // Average value of orders
+  visibilityScore   Float?           @default(0.0) // For search ranking
+  lastModifiedBy    Int? // ID of user/admin who last updated
+  geoRestrictions   String[]         @default([]) // e.g., ["US", "EU"] for regional availability
 
-  freelancer    FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
-  orders        Order[]
+  freelancer FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
+  orders     Order[]
+  reviews    Review[]          @relation("GigReviews")
+
+  @@index([freelancerId, status])
+  @@index([category])
+  @@index([visibilityScore])
 }
 
 enum GigStatus {
@@ -254,62 +311,90 @@ model GigSampleMedia {
   description String?
   uploadedAt  DateTime  @default(now())
 
-  gig         Gig       @relation(fields: [gigId], references: [id], onDelete: Cascade)
+  gig Gig @relation(fields: [gigId], references: [id], onDelete: Cascade)
 }
 
 enum MediaType {
-  VIDEO
   IMAGE
-  AUDIO
-  DOCUMENT
+  VIDEO
   THUMBNAIL
 }
 
-// Order model (Enhanced)
+// Order model
 model Order {
-  id                Int           @id @default(autoincrement())
-  gigId             Int           @map("gig_id")
-  clientId          Int           @map("client_id")
-  freelancerId      Int           @map("freelancer_id")
-  package           String
-  totalPrice        Float
-  status            OrderStatus   @default(PENDING)
-  requirements      String?
-  deliveryDeadline  DateTime?
-  createdAt         DateTime      @default(now())
-  updatedAt         DateTime      @default(now()) @updatedAt
-  completedAt       DateTime?
-  orderNumber       String        @unique
-  revisionsRequested Int          @default(0)
-  revisionsCompleted Int          @default(0)
-  deliveryExtensions Int          @default(0)
-  extensionReason   String?
+  id                 Int                  @id @default(autoincrement())
+  gigId              Int                  @map("gig_id")
+  clientId           Int                  @map("client_id")
+  freelancerId       Int                  @map("freelancer_id")
+  package            String
+  totalPrice         Float
+  status             OrderStatus          @default(PENDING)
+  requirements       String?
+  deliveryDeadline   DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @default(now()) @updatedAt
+  completedAt        DateTime?
+  orderNumber        String               @unique
+  revisionsRequested Int                  @default(0)
+  revisionsCompleted Int                  @default(0)
+  deliveryExtensions Int                  @default(0)
+  extensionReason    String?
   cancellationReason String?
-  cancellationDate  DateTime?
-  isUrgent          Boolean       @default(false)
-  priorityFee       Float?
-  customDetails     Json?
-  statusHistory     OrderStatusHistory[]
-  progress          Int           @default(0) // New: Progress percentage (0-100)
-  daysLeft          Int?          // New: Days left until deadline (calculated or stored)
+  cancellationDate   DateTime?
+  isUrgent           Boolean              @default(false)
+  priorityFee        Float?
+  customDetails      Json?
+  statusHistory      OrderStatusHistory[]
+  progress           Int                  @default(0)
+  daysLeft           Int?
+  currency           String               @default("USD")
+  sourceIp           String?
+  trackingId         String?              @unique
+  lastNotifiedAt     DateTime?
+  // New fields
+  orderSource        String? // e.g., "WEB", "MOBILE", "API"
+  clientNotes        String? // Client notes during purchase
+  urgencyLevel       String? // e.g., "STANDARD", "RUSH", "EXPRESS"
+  orderPriority      Int                  @default(0) // For freelancer queue
+  metadata           Json? // Flexible field for analytics
+  lastModifiedBy     Int? // ID of user/admin who last modified
+  region             String? // e.g., "US", "EU" for geo-based analytics
+  slaCompliance      Boolean              @default(true) // Tracks if order meets SLA
 
-  gig               Gig           @relation(fields: [gigId], references: [id], onDelete: Cascade)
-  client            User          @relation("ClientOrders", fields: [clientId], references: [id])
-  freelancer        FreelancerProfile @relation("FreelancerOrders", fields: [freelancerId], references: [id], onDelete: Cascade)
-  transactions      Transaction[]
-  review            Review?
-  dispute           Dispute?
+  gig          Gig               @relation(fields: [gigId], references: [id], onDelete: Cascade)
+  client       User              @relation("ClientOrders", fields: [clientId], references: [id])
+  freelancer   FreelancerProfile @relation("FreelancerOrders", fields: [freelancerId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  review       Review?
+  dispute      Dispute?
+  invoice      Invoice?          @relation("OrderInvoice")
+  messages     Message[]
+  milestones   Milestone[] // New relation for milestones
+
+  @@index([gigId, status])
+  @@index([clientId, status])
+  @@index([freelancerId, status])
+  @@index([orderNumber])
+  @@index([orderPriority])
+}
+
+enum PaymentStatus {
+  PENDING
+  AUTHORIZED
+  CAPTURED
+  FAILED
+  REFUNDED
 }
 
 model OrderStatusHistory {
-  id         Int           @id @default(autoincrement())
-  orderId    Int           @map("order_id")
-  status     OrderStatus
-  changedAt  DateTime      @default(now())
-  changedBy  Int?          @map("changed_by")
+  id        Int         @id @default(autoincrement())
+  orderId   Int         @map("order_id")
+  status    OrderStatus
+  changedAt DateTime    @default(now())
+  changedBy Int?        @map("changed_by")
 
-  order      Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  user       User?         @relation(fields: [changedBy], references: [id])
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user  User? @relation(fields: [changedBy], references: [id])
 }
 
 enum OrderStatus {
@@ -322,20 +407,58 @@ enum OrderStatus {
   DISPUTED
 }
 
+// Invoice model
+model Invoice {
+  id            String        @id @default(uuid())
+  orderId       Int           @unique @map("order_id")
+  clientId      Int           @map("client_id")
+  freelancerId  Int           @map("freelancer_id")
+  invoiceNumber String        @unique
+  amount        Float
+  taxAmount     Float?
+  currency      String        @default("USD")
+  status        InvoiceStatus @default(PENDING)
+  issuedAt      DateTime      @default(now())
+  dueDate       DateTime?
+  pdfUrl        String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  order      Order             @relation("OrderInvoice", fields: [orderId], references: [id], onDelete: Cascade)
+  client     User              @relation("ClientInvoices", fields: [clientId], references: [id])
+  freelancer FreelancerProfile @relation("FreelancerInvoices", fields: [freelancerId], references: [id], onDelete: Cascade)
+}
+
+enum InvoiceStatus {
+  PENDING
+  ISSUED
+  PAID
+  OVERDUE
+  CANCELLED
+}
+
 // Transaction model (Unchanged)
 model Transaction {
-  id             Int       @id @default(autoincrement())
-  orderId        Int       @map("order_id")
-  userId         Int       @map("user_id")
-  amount         Float
-  type           TransactionType
-  paymentMethod  String?
-  status         TransactionStatus @default(PENDING)
-  createdAt      DateTime  @default(now())
+  id               Int               @id @default(autoincrement())
+  orderId          Int               @map("order_id")
+  userId           Int               @map("user_id")
+  amount           Float
+  type             TransactionType
+  paymentMethod    String?
+  status           TransactionStatus @default(PENDING)
+  createdAt        DateTime          @default(now())
+  // New fields
+  paymentGatewayId String?           @unique // Stripe/PayPal transaction ID
+  paymentIntentId  String? // Payment intent ID for async payments
+  refundReason     String? // Reason for refund, if applicable
+  fraudStatus      String? // Fraud detection status (e.g., "APPROVED", "FLAGGED")
+  ipAddress        String? // Client IP for fraud detection
+  gatewayFee       Float? // Payment gateway fee
+  metadata         Json? // Additional payment metadata
 
-  order          Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  user           User      @relation(fields: [userId], references: [id])
-  platformFee    PlatformFee?
+  order       Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user        User         @relation(fields: [userId], references: [id])
+  platformFee PlatformFee?
 }
 
 enum TransactionType {
@@ -352,28 +475,30 @@ enum TransactionStatus {
 
 // Review model (Unchanged)
 model Review {
-  id            Int       @id @default(autoincrement())
-  orderId       Int       @unique @map("order_id")
-  clientId      Int       @map("client_id")
-  freelancerId  Int       @map("freelancer_id")
-  rating        Int
-  comment       String?
-  title         String?
-  isAnonymous   Boolean   @default(false)
-  helpfulCount  Int       @default(0)
-  response      String?
-  respondedAt   DateTime?
-  isVerified    Boolean   @default(true)
+  id               Int              @id @default(autoincrement())
+  orderId          Int              @unique @map("order_id")
+  clientId         Int              @map("client_id")
+  freelancerId     Int              @map("freelancer_id")
+  rating           Int
+  comment          String?
+  title            String?
+  isAnonymous      Boolean          @default(false)
+  helpfulCount     Int              @default(0)
+  response         String?
+  respondedAt      DateTime?
+  isVerified       Boolean          @default(true)
   moderationStatus ModerationStatus @default(APPROVED)
-  moderatedAt   DateTime?
-  moderatedBy   Int?      @map("moderated_by")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  moderatedAt      DateTime?
+  moderatedBy      Int?             @map("moderated_by")
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @default(now()) @updatedAt
 
-  order         Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  client        User      @relation("ReviewsByClient", fields: [clientId], references: [id])
-  freelancer    FreelancerProfile @relation("ReviewsForFreelancer", fields: [freelancerId], references: [id], onDelete: Cascade)
-  moderator     User?     @relation("ModeratedBy", fields: [moderatedBy], references: [id])
+  order      Order             @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  client     User              @relation("ReviewsByClient", fields: [clientId], references: [id])
+  freelancer FreelancerProfile @relation("ReviewsForFreelancer", fields: [freelancerId], references: [id], onDelete: Cascade)
+  gigId      Int               @map("gig_id")
+  gig        Gig               @relation("GigReviews", fields: [gigId], references: [id])
+  moderator  User?             @relation("ModeratedBy", fields: [moderatedBy], references: [id])
 }
 
 enum ModerationStatus {
@@ -384,36 +509,38 @@ enum ModerationStatus {
 
 // Message model (Updated)
 model Message {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   jobId       Int
   senderId    Int
   content     String?
-  attachments Json[]    @default([])
-  timestamp   DateTime  @default(now())
-  job         Job       @relation("JobMessages", fields: [jobId], references: [id])
-  sender      User      @relation("UserMessages", fields: [senderId], references: [id])
+  attachments Json[]   @default([])
+  timestamp   DateTime @default(now())
+  job         Job      @relation("JobMessages", fields: [jobId], references: [id])
+  sender      User     @relation("UserMessages", fields: [senderId], references: [id])
 
   // Reply support
-  replyTo     String?   // The ID of the message being replied to
-  reply       Message?  @relation("MessageReplies", fields: [replyTo], references: [id])
-  replies     Message[] @relation("MessageReplies")
+  replyTo String? // The ID of the message being replied to
+  reply   Message?  @relation("MessageReplies", fields: [replyTo], references: [id])
+  replies Message[] @relation("MessageReplies")
+  Order   Order?    @relation(fields: [orderId], references: [id])
+  orderId Int?
 }
 
 // Category model (Unchanged)
 model Category {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
   description String?
-  parentId    Int?      @map("parent_id")
+  parentId    Int?    @map("parent_id")
 
-  parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children    Category[] @relation("CategoryHierarchy")
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
 }
 
 // Skill model (Unchanged)
 model Skill {
-  id         Int       @id @default(autoincrement())
-  name       String    @unique
+  id   Int    @id @default(autoincrement())
+  name String @unique
 
   freelancers FreelancerSkill[]
 }
@@ -423,40 +550,49 @@ model FreelancerSkill {
   freelancerId Int @map("freelancer_id")
   skillId      Int @map("skill_id")
 
-  freelancer   FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
-  skill        Skill            @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  freelancer FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
+  skill      Skill             @relation(fields: [skillId], references: [id], onDelete: Cascade)
 
   @@id([freelancerId, skillId])
 }
 
 // New: FreelancerSoftware model
 model FreelancerSoftware {
-  id           Int       @id @default(autoincrement())
-  freelancerId Int       @map("freelancer_id")
-  name         String    // e.g., "Adobe Premiere Pro"
-  icon         String    // e.g., "Pr"
-  level        Int       // Proficiency level (0-100)
+  id           Int    @id @default(autoincrement())
+  freelancerId Int    @map("freelancer_id")
+  name         String // e.g., "Adobe Premiere Pro"
+  icon         String // e.g., "Pr"
+  level        Int // Proficiency level (0-100)
 
-  freelancer   FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
+  freelancer FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
 }
 
 // Notification model (Unchanged)
 model Notification {
-  id            Int       @id @default(autoincrement())
-  userId        Int       @map("user_id")
-  type          NotificationType
-  content       String
-  entityType    String?
-  entityId      Int?
-  priority      Priority  @default(NORMAL)
-  isRead        Boolean   @default(false)
-  readAt        DateTime?
-  expiresAt     DateTime?
-  metadata      Json?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id             Int              @id @default(autoincrement())
+  userId         Int              @map("user_id")
+  type           NotificationType
+  content        String
+  entityType     String?
+  entityId       Int?
+  priority       Priority         @default(NORMAL)
+  isRead         Boolean          @default(false)
+  readAt         DateTime?
+  expiresAt      DateTime?
+  metadata       Json?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  deliveryStatus String? // e.g., "PENDING", "SENT", "FAILED"
+  deliveryMethod String? // e.g., "EMAIL", "PUSH", "IN_APP"
+  batchId        String? // For batch notification processing
+  // New fields
+  retryCount     Int              @default(0) // Track notification retries
+  scheduledAt    DateTime? // For scheduled notifications
 
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
 }
 
 enum NotificationType {
@@ -477,47 +613,47 @@ enum Priority {
 
 // Dispute model (Unchanged)
 model Dispute {
-  id            Int       @id @default(autoincrement())
-  orderId       Int       @unique @map("order_id")
-  raisedById    Int       @map("raised_by_id")
-  reason        String
-  description   String?
-  status        DisputeStatus @default(OPEN)
-  resolution    String?
-  resolvedAt    DateTime?
-  resolvedBy    Int?      @map("resolved_by")
-  evidence      DisputeEvidence[]
-  comments      DisputeComment[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  id          Int               @id @default(autoincrement())
+  orderId     Int               @unique @map("order_id")
+  raisedById  Int               @map("raised_by_id")
+  reason      String
+  description String?
+  status      DisputeStatus     @default(OPEN)
+  resolution  String?
+  resolvedAt  DateTime?
+  resolvedBy  Int?              @map("resolved_by")
+  evidence    DisputeEvidence[]
+  comments    DisputeComment[]
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @default(now()) @updatedAt
 
-  order         Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  raisedBy      User      @relation("RaisedBy", fields: [raisedById], references: [id])
-  resolver      User?     @relation("ResolvedBy", fields: [resolvedBy], references: [id])
+  order    Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  raisedBy User  @relation("RaisedBy", fields: [raisedById], references: [id])
+  resolver User? @relation("ResolvedBy", fields: [resolvedBy], references: [id])
 }
 
 model DisputeEvidence {
-  id         Int       @id @default(autoincrement())
-  disputeId  Int       @map("dispute_id")
+  id         Int      @id @default(autoincrement())
+  disputeId  Int      @map("dispute_id")
   fileUrl    String
   fileType   String
   fileName   String?
-  uploadedBy Int       @map("uploaded_by")
-  uploadedAt DateTime  @default(now())
+  uploadedBy Int      @map("uploaded_by")
+  uploadedAt DateTime @default(now())
 
-  dispute    Dispute   @relation(fields: [disputeId], references: [id], onDelete: Cascade)
-  uploader   User      @relation(fields: [uploadedBy], references: [id])
+  dispute  Dispute @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  uploader User    @relation(fields: [uploadedBy], references: [id])
 }
 
 model DisputeComment {
-  id         Int       @id @default(autoincrement())
-  disputeId  Int       @map("dispute_id")
-  userId     Int       @map("user_id")
-  content    String
-  createdAt  DateTime  @default(now())
+  id        Int      @id @default(autoincrement())
+  disputeId Int      @map("dispute_id")
+  userId    Int      @map("user_id")
+  content   String
+  createdAt DateTime @default(now())
 
-  dispute    Dispute   @relation(fields: [disputeId], references: [id], onDelete: Cascade)
-  user       User      @relation(fields: [userId], references: [id])
+  dispute Dispute @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id])
 }
 
 enum DisputeStatus {
@@ -529,39 +665,39 @@ enum DisputeStatus {
 
 // PaymentSetting model (Unchanged)
 model PaymentSetting {
-  id         Int       @id @default(autoincrement())
+  id           Int     @id @default(autoincrement())
   freelancerId Int     @map("freelancer_id")
-  method     String
-  details    Json
-  isVerified Boolean   @default(false)
+  method       String
+  details      Json
+  isVerified   Boolean @default(false)
 
   freelancer FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
 }
 
 // PlatformFee model (Unchanged)
 model PlatformFee {
-  id            Int       @id @default(autoincrement())
-  transactionId Int       @unique @map("transaction_id")
+  id            Int      @id @default(autoincrement())
+  transactionId Int      @unique @map("transaction_id")
   amount        Float
   percentage    Float
-  createdAt     DateTime  @default(now())
+  createdAt     DateTime @default(now())
 
-  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 }
 
 // Referral model (Unchanged)
 model Referral {
-  id            Int       @id @default(autoincrement())
-  referrerId    Int       @map("referrer_id")
-  refereeId     Int?      @unique @map("referee_id")
-  referralCode  String    @unique
-  status        ReferralStatus @default(PENDING)
-  rewardAmount  Float?
-  createdAt     DateTime  @default(now())
-  redeemedAt    DateTime?
+  id           Int            @id @default(autoincrement())
+  referrerId   Int            @map("referrer_id")
+  refereeId    Int?           @unique @map("referee_id")
+  referralCode String         @unique
+  status       ReferralStatus @default(PENDING)
+  rewardAmount Float?
+  createdAt    DateTime       @default(now())
+  redeemedAt   DateTime?
 
-  referrer      User      @relation("Referrer", fields: [referrerId], references: [id])
-  referee       User?     @relation("Referee", fields: [refereeId], references: [id])
+  referrer User  @relation("Referrer", fields: [referrerId], references: [id])
+  referee  User? @relation("Referee", fields: [refereeId], references: [id])
 }
 
 enum ReferralStatus {
@@ -572,21 +708,21 @@ enum ReferralStatus {
 
 // Promotion model (Unchanged)
 model Promotion {
-  id            Int       @id @default(autoincrement())
-  type          PromotionType
-  code          String?   @unique
-  entityType    String?
-  entityId      Int?
+  id             Int             @id @default(autoincrement())
+  type           PromotionType
+  code           String?         @unique
+  entityType     String?
+  entityId       Int?
   discountAmount Float?
-  discountType  DiscountType?
-  userId        Int?      @map("user_id")
-  status        PromotionStatus @default(ACTIVE)
-  maxUses       Int?
-  uses          Int       @default(0)
-  createdAt     DateTime  @default(now())
-  expiresAt     DateTime?
+  discountType   DiscountType?
+  userId         Int?            @map("user_id")
+  status         PromotionStatus @default(ACTIVE)
+  maxUses        Int?
+  uses           Int             @default(0)
+  createdAt      DateTime        @default(now())
+  expiresAt      DateTime?
 
-  user          User?     @relation(fields: [userId], references: [id])
+  user User? @relation(fields: [userId], references: [id])
 }
 
 enum PromotionType {
@@ -606,8 +742,8 @@ enum PromotionStatus {
 }
 
 model Badge {
-  id          String    @id @default(uuid())
-  name        String    @unique
+  id          String      @id @default(uuid())
+  name        String      @unique
   icon        String
   color       String
   description String
@@ -615,13 +751,13 @@ model Badge {
 }
 
 model UserBadge {
-  id           String          @id @default(uuid())
+  id           String            @id @default(uuid())
   freelancerId Int
   badgeId      String
-  earnedAt     DateTime        @default(now())
-  isVisible    Boolean         @default(true)
+  earnedAt     DateTime          @default(now())
+  isVisible    Boolean           @default(true)
   freelancer   FreelancerProfile @relation(fields: [freelancerId], references: [id])
-  badge        Badge           @relation(fields: [badgeId], references: [id])
+  badge        Badge             @relation(fields: [badgeId], references: [id])
 }
 
 enum SubmissionStatus {
@@ -657,26 +793,26 @@ enum ContactMethod {
 
 // Contact submission models
 model ContactSubmission {
-  id              String          @id @default(uuid())
+  id              String           @id @default(uuid())
   firstName       String
   lastName        String
-  email           String          @db.VarChar(255)
-  phone           String?         @db.VarChar(20)
-  category        IssueCategory   @default(OTHER)
-  subject         String          @db.VarChar(255)
-  message         String          @db.Text
-  priority        PriorityLevel   @default(MEDIUM)
-  contactMethod   ContactMethod   @default(EMAIL)
+  email           String           @db.VarChar(255)
+  phone           String?          @db.VarChar(20)
+  category        IssueCategory    @default(OTHER)
+  subject         String           @db.VarChar(255)
+  message         String           @db.Text
+  priority        PriorityLevel    @default(MEDIUM)
+  contactMethod   ContactMethod    @default(EMAIL)
   status          SubmissionStatus @default(PENDING)
-  isResolved      Boolean         @default(false)
-  assignedAdminId String?         @db.VarChar(36) // UUID of admin, nullable
-  resolutionNotes String?         @db.Text // Notes on how the issue was resolved
-  lastActionAt    DateTime?       // Tracks last update or interaction
-  files           ContactFile[]   // Relation to uploaded files
-  createdBy       String?         @db.VarChar(36) // Optional: user ID who submitted (for logged-in users)
-  updatedBy       String?         @db.VarChar(36) // Optional: admin/user who last updated
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  isResolved      Boolean          @default(false)
+  assignedAdminId String?          @db.VarChar(36) // UUID of admin, nullable
+  resolutionNotes String?          @db.Text // Notes on how the issue was resolved
+  lastActionAt    DateTime? // Tracks last update or interaction
+  files           ContactFile[] // Relation to uploaded files
+  createdBy       String?          @db.VarChar(36) // Optional: user ID who submitted (for logged-in users)
+  updatedBy       String?          @db.VarChar(36) // Optional: admin/user who last updated
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
   // Indexes for faster queries
   @@index([email])
@@ -693,8 +829,8 @@ model ContactFile {
   fileName            String?           @db.VarChar(255) // Original file name for reference
   fileUrl             String            @db.VarChar(512) // URL to the uploaded file
   fileType            String            @db.VarChar(100) // e.g., "image/jpeg"
-  fileSize            Int               // Size in bytes
-  description         String?           @db.Text         // Optional context (e.g., "Screenshot of error")
+  fileSize            Int // Size in bytes
+  description         String?           @db.Text // Optional context (e.g., "Screenshot of error")
   createdAt           DateTime          @default(now())
   // For regular contact form submissions
   contact             Contact?          @relation(fields: [contactId], references: [id], onDelete: Cascade)
@@ -707,20 +843,20 @@ model ContactFile {
 
 // Simple contact form model
 model Contact {
-  id            Int            @id @default(autoincrement())
+  id            Int             @id @default(autoincrement())
   firstName     String
   lastName      String
   email         String
   phone         String?
   category      ContactCategory
   subject       String
-  message       String         @db.Text
+  message       String          @db.Text
   priority      ContactPriority
   contactMethod ContactMethod
-  status        ContactStatus  @default(PENDING)
+  status        ContactStatus   @default(PENDING)
   files         ContactFile[]
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
 }
 
 enum ContactCategory {
@@ -744,3 +880,5 @@ enum ContactStatus {
   RESOLVED
   CLOSED
 }
+
+// schema.prisma

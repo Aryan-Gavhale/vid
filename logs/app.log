@@ -1,0 +1,230 @@
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:28:19.783Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:28:19.875Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 1","timestamp":"2025-07-10T19:28:22.231Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 1","timestamp":"2025-07-10T19:28:22.801Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:41.583Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:41.695Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 1","timestamp":"2025-07-10T19:30:42.047Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 1","timestamp":"2025-07-10T19:30:42.453Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:51.490Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-10T19:30:51.658Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:51.761Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-10T19:30:52.219Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:52.435Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:30:52.677Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:31:12.136Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:31:12.212Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-10T19:31:12.357Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:31:12.375Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 2: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 1,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:31:12.446Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-10T19:31:12.607Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:32:50.285Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:32:50.363Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:32:50.439Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:32:50.516Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:32:50.529Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:32:50.687Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:34:04.300Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:34:04.683Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:34:05.503Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:34:05.509Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:36:39.540Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:36:40.401Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:36:40.545Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:36:40.795Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:36:40.894Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:36:41.085Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:39:13.960Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:39:14.945Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:39:15.893Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:39:15.990Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:39:16.085Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:39:16.275Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:42:07.919Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving current orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: {\n      in: [\n        \"ACCEPTED\",\n        \"IN_PROGRESS\"\n      ]\n    }\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:42:09.030Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:42:09.194Z"}
+{"error":{"clientVersion":"6.2.1","name":"PrismaClientValidationError"},"level":"error","message":"Error retrieving pending orders for user 3: \nInvalid `prisma.order.findMany()` invocation:\n\n{\n  where: {\n    freelancerId: 2,\n    status: \"PENDING\"\n  },\n  include: {\n    gig: true,\n    client: {\n      select: {\n        firstname: true,\n        lastname: true\n      }\n    }\n  },\n  orderBy: {\n    orderPriority: \"desc\",\n    createdAt: \"desc\"\n  }\n  ~~~~~~~~~~~~~~~~~~~~~~~\n}\n\nArgument `orderBy`: Invalid value provided. Expected OrderOrderByWithRelationInput[], provided Object.","timestamp":"2025-07-10T19:42:09.634Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:42:10.311Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:42:10.670Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:44:47.851Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 2","timestamp":"2025-07-10T19:44:48.770Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:44:48.802Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 2","timestamp":"2025-07-10T19:44:49.306Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:44:50.034Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-10T19:44:50.309Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:44:56.875Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:44:57.083Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:44:57.186Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:44:57.987Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:48:01.589Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:48:01.768Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:48:01.978Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:48:02.509Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:50:01.188Z"}
+{"level":"info","message":"Retrieved 0 freelancer orders for freelancer 2","timestamp":"2025-07-10T19:50:01.650Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:50:01.926Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-10T19:50:02.119Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-11T06:11:07.050Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-11T06:11:07.242Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 2","timestamp":"2025-07-11T06:13:55.434Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-11T06:13:55.436Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 2","timestamp":"2025-07-11T06:13:55.969Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 2","timestamp":"2025-07-11T06:13:55.971Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-11T06:13:56.251Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 2","timestamp":"2025-07-11T06:13:56.453Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:22:58.840Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:22:59.203Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:23:59.925Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:24:00.313Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:24:15.990Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T07:24:16.592Z"}
+{"error":{"clientVersion":"6.2.1","code":"P2024","meta":{"connection_limit":21,"modelName":"Order","timeout":10},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error retrieving client orders for user 4: \nInvalid `prisma.order.findMany()` invocation:\n\n\nTimed out fetching a new connection from the connection pool. More info: http://pris.ly/d/connection-pool (Current connection pool timeout: 10, connection limit: 21)","timestamp":"2025-07-11T08:26:24.290Z"}
+{"error":{"clientVersion":"6.2.1","code":"P1001","meta":{"database_host":"dpg-d1mgsr15pdvs73d17h1g-a.singapore-postgres.render.com","database_port":5432,"modelName":"Order"},"name":"PrismaClientKnownRequestError"},"level":"error","message":"Error retrieving client orders for user 4: \nInvalid `prisma.order.findMany()` invocation:\n\n\nCan't reach database server at `dpg-d1mgsr15pdvs73d17h1g-a.singapore-postgres.render.com:5432`\n\nPlease make sure your database server is running at `dpg-d1mgsr15pdvs73d17h1g-a.singapore-postgres.render.com:5432`.","timestamp":"2025-07-11T08:26:24.299Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:51:35.471Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:51:36.216Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:52:40.550Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:52:40.924Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:59:50.163Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T09:59:50.770Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:01:13.143Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:01:13.502Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:01:20.100Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:01:20.546Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:02:16.417Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:02:16.806Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:02:55.859Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:02:56.257Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:06:37.693Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:06:38.051Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:09:30.913Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:09:31.340Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:08.955Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:09.505Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:45.556Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:46.036Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:48.535Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:13:48.923Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:18:30.464Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:18:59.548Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:18:59.881Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:19:17.159Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:19:17.555Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:19:36.144Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:19:36.512Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:31:40.290Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 4","timestamp":"2025-07-11T10:31:40.720Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:34:54.302Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:34:54.935Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:35:06.462Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:35:07.101Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:40:34.450Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:40:34.892Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:40:55.592Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:40:55.972Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 1","timestamp":"2025-07-11T10:44:53.548Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:45:24.773Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:45:25.198Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:45:37.497Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:45:37.687Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:46:08.456Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T10:46:08.618Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T10:46:08.657Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T10:46:09.136Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T10:46:09.148Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T10:46:09.154Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:14:09.770Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:14:09.771Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:14:09.868Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:14:10.186Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:14:10.388Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:14:10.497Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:16:12.341Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:16:12.400Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:16:12.483Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:16:12.804Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:16:12.869Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:16:12.874Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:17:27.298Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:17:27.300Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:17:27.365Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:17:27.853Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:17:27.854Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:17:27.854Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:19:46.122Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:19:46.124Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:19:46.247Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T11:19:46.583Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T11:19:46.585Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T11:19:46.586Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T16:07:41.157Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T16:07:41.523Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T16:07:41.741Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T16:07:42.065Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T16:07:42.190Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T16:07:42.494Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T18:51:13.298Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T18:51:13.318Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-11T18:51:14.216Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-11T18:51:14.347Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T18:51:14.351Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-11T18:51:14.821Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T05:48:19.311Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T05:48:19.708Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T05:48:20.350Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T05:48:20.434Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T05:48:20.613Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T05:48:20.890Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T05:48:48.349Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T05:48:48.436Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T05:48:48.532Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T05:48:48.729Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T05:48:48.934Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T05:48:49.044Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T06:51:48.664Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T06:51:49.301Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T06:51:49.577Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T06:51:49.742Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T06:51:50.185Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T06:51:50.312Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T07:27:52.499Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T07:27:53.153Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T07:27:53.158Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T07:27:53.410Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T07:27:53.588Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T07:27:53.674Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:10:40.560Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:10:41.517Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:10:41.598Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:10:41.637Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:10:42.069Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:10:42.071Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:22:30.892Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:22:30.893Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:22:30.894Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:22:31.523Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:22:31.585Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:22:31.625Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:45:42.968Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:45:43.068Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:45:43.108Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T08:45:43.646Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T08:45:43.759Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T08:45:44.002Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:03:19.114Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:03:19.859Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:03:19.951Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:03:20.040Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:03:20.354Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:03:20.444Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:13:58.737Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:13:59.367Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:13:59.537Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:13:59.621Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:13:59.870Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:13:59.944Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:35:09.784Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:35:10.084Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:35:10.090Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-12T09:35:10.428Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-12T09:35:10.469Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-12T09:35:10.674Z"}
