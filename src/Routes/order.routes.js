@@ -9,6 +9,7 @@ import {
   getCurrentOrders,
   getPendingOrders,
   getCompletedOrders,
+  getRejectedOrders,
 } from "../Controllers/order.controller.js";
 import { authenticateToken } from "../Middlewares/protect.middleware.js";
 import { validateBody, validateQuery } from "../Middlewares/validate.middleware.js";
@@ -17,16 +18,36 @@ import Joi from "joi";
 const router = express.Router();
 
 // Validation schemas
+
+// const createOrderSchema = Joi.object({
+//   gigId: Joi.number().integer().required(),
+//   selectedPackage: Joi.string().required(),
+//   title: Joi.string().required(),
+//   description: Joi.string().required(),
+//   requirements: Joi.string().optional(),
+//   isUrgent: Joi.boolean().optional(),
+//   customDetails: Joi.object().optional(),
+// });
 const createOrderSchema = Joi.object({
   gigId: Joi.number().integer().required(),
   selectedPackage: Joi.string().required(),
+  title: Joi.string().required(),
+  description: Joi.string().required(),
+  videoType: Joi.string().required(),
+  numberOfVideos: Joi.number().integer().required(),
+  totalDuration: Joi.number().integer().required(),
+  referenceUrl: Joi.string().uri().optional(),
+  aspectRatio: Joi.string().required(),
+  addSubtitles: Joi.boolean().optional(),
+  expressDelivery: Joi.boolean().optional(),
+  uploadedFiles: Joi.array().items(Joi.string().uri()).optional(),
   requirements: Joi.string().optional(),
-  isUrgent: Joi.boolean().optional(),
   customDetails: Joi.object().optional(),
 });
 
+
 const updateStatusSchema = Joi.object({
-  status: Joi.string().valid("PENDING", "ACCEPTED", "IN_PROGRESS", "DELIVERED", "COMPLETED", "CANCELLED", "DISPUTED").required(),
+  status: Joi.string().valid("PENDING", "CURRENT", "COMPLETED", "REJECTED").required(),
   extensionReason: Joi.string().optional(),
   cancellationReason: Joi.string().optional(),
 });
@@ -50,6 +71,8 @@ router.get("/freelancer", validateQuery(getOrdersSchema), getFreelancerOrders);
 router.get("/current", getCurrentOrders);
 router.get("/pending", getPendingOrders); // Moved up
 router.get("/completed", getCompletedOrders); // Moved up
+router.get("/rejected", getRejectedOrders); // Moved up
+
 
 // Dynamic routes last
 router.patch("/:orderId/status", validateBody(updateStatusSchema), updateOrderStatus);

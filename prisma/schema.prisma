@@ -286,6 +286,8 @@ model Gig {
   lastModifiedBy    Int? // ID of user/admin who last updated
   geoRestrictions   String[]         @default([]) // e.g., ["US", "EU"] for regional availability
 
+  conversionRate    Float?           @default(0.0)
+
   freelancer FreelancerProfile @relation(fields: [freelancerId], references: [id], onDelete: Cascade)
   orders     Order[]
   reviews    Review[]          @relation("GigReviews")
@@ -326,6 +328,17 @@ model Order {
   gigId              Int                  @map("gig_id")
   clientId           Int                  @map("client_id")
   freelancerId       Int                  @map("freelancer_id")
+  title              String               // ✅ Project title
+  description        String               // ✅ Description
+  videoType          String?              // ✅ Video type
+  numberOfVideos     Int?                 // ✅ Number of videos
+  totalDuration      Int?                 // ✅ Total duration in seconds
+  referenceUrl       String?              // ✅ Reference video URL
+  aspectRatio        String?              // ✅ Aspect ratio
+  addSubtitles       Boolean              @default(false) // ✅ Subtitles flag
+  expressDelivery    Boolean              @default(false) // ✅ Express delivery flag
+  uploadedFiles      Json?                // ✅ Store uploaded file URLs as JSON array
+
   package            String
   totalPrice         Float
   status             OrderStatus          @default(PENDING)
@@ -351,15 +364,14 @@ model Order {
   sourceIp           String?
   trackingId         String?              @unique
   lastNotifiedAt     DateTime?
-  // New fields
-  orderSource        String? // e.g., "WEB", "MOBILE", "API"
-  clientNotes        String? // Client notes during purchase
-  urgencyLevel       String? // e.g., "STANDARD", "RUSH", "EXPRESS"
-  orderPriority      Int                  @default(0) // For freelancer queue
-  metadata           Json? // Flexible field for analytics
-  lastModifiedBy     Int? // ID of user/admin who last modified
-  region             String? // e.g., "US", "EU" for geo-based analytics
-  slaCompliance      Boolean              @default(true) // Tracks if order meets SLA
+  orderSource        String?
+  clientNotes        String?
+  urgencyLevel       String?
+  orderPriority      Int                  @default(0)
+  metadata           Json?
+  lastModifiedBy     Int?
+  region             String?
+  slaCompliance      Boolean              @default(true)
 
   gig          Gig               @relation(fields: [gigId], references: [id], onDelete: Cascade)
   client       User              @relation("ClientOrders", fields: [clientId], references: [id])
@@ -369,7 +381,7 @@ model Order {
   dispute      Dispute?
   invoice      Invoice?          @relation("OrderInvoice")
   messages     Message[]
-  milestones   Milestone[] // New relation for milestones
+  milestones   Milestone[]
 
   @@index([gigId, status])
   @@index([clientId, status])
@@ -377,6 +389,7 @@ model Order {
   @@index([orderNumber])
   @@index([orderPriority])
 }
+
 
 enum PaymentStatus {
   PENDING
@@ -399,12 +412,9 @@ model OrderStatusHistory {
 
 enum OrderStatus {
   PENDING
-  ACCEPTED
-  IN_PROGRESS
-  DELIVERED
+  CURRENT
   COMPLETED
-  CANCELLED
-  DISPUTED
+  REJECTED
 }
 
 // Invoice model

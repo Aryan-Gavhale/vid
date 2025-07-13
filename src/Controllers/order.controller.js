@@ -13,11 +13,30 @@ const createOrder = async (req, res, next) => {
       throw new ApiError(401, "Unauthorized: User not authenticated");
     }
     const clientId = req.user.id;
-    const { gigId, selectedPackage, requirements, isUrgent, customDetails } = req.body;
+    // const { gigId, selectedPackage, requirements, isUrgent, customDetails } = req.body;
+
+    const {
+      gigId,
+      selectedPackage,
+      title,
+      description,
+      videoType,
+      numberOfVideos,
+      totalDuration,
+      referenceUrl,
+      aspectRatio,
+      addSubtitles,
+      expressDelivery,
+      uploadedFiles, // You’d store file links, or handle upload before order create
+      requirements,
+      customDetails,
+    } = req.body;
 
     if (!gigId || !selectedPackage) {
       throw new ApiError(400, "Gig ID and package are required");
     }
+
+    const orderNumber = `ORD-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, "0")}${String(new Date().getDate()).padStart(2, "0")}-${uuidv4().slice(0, 4).toUpperCase()}`;
 
     const order = await prisma.$transaction(async (tx) => {
       // Validate gig
@@ -37,8 +56,13 @@ const createOrder = async (req, res, next) => {
       }
 
       // Calculate price and order details
-      const totalPrice = isUrgent ? selectedPackageData.price * 1.5 : selectedPackageData.price;
-      const orderNumber = `ORD-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, "0")}${String(new Date().getDate()).padStart(2, "0")}-${uuidv4().slice(0, 4).toUpperCase()}`;
+      const basePrice = Number(selectedPackageData.price); // convert string to number
+      if (isNaN(basePrice)) {
+        throw new ApiError(500, "Invalid package price format");
+      }
+
+      const totalPrice = expressDelivery ? basePrice * 1.5 : basePrice;
+      const priorityFee = expressDelivery ? basePrice * 0.5 : null;
       const deliveryDeadline = new Date(Date.now() + (gig.deliveryTime || 7) * 24 * 60 * 60 * 1000);
 
       // Create order
@@ -47,19 +71,37 @@ const createOrder = async (req, res, next) => {
           gigId: gig.id,
           clientId,
           freelancerId: gig.freelancerId,
+
+          title,
+          description,
+          videoType,
+          numberOfVideos,
+          totalDuration,
+          referenceUrl,
+          aspectRatio,
+          addSubtitles,
+          expressDelivery,
+          uploadedFiles, // Assumed to be JSON array of links or meta
+          
           package: selectedPackage,
           totalPrice,
           requirements,
-          isUrgent: isUrgent || false,
-          priorityFee: isUrgent ? selectedPackageData.price * 0.5 : null,
+          isUrgent: expressDelivery || false,
+          priorityFee,
           customDetails,
           orderNumber,
           deliveryDeadline,
           orderSource: req.headers["user-agent"]?.includes("Mobile") ? "MOBILE" : "WEB",
-          urgencyLevel: isUrgent ? "EXPRESS" : "STANDARD",
-          orderPriority: isUrgent ? 1 : 0,
-          statusHistory: { create: { status: "PENDING", changedBy: clientId } },
+          urgencyLevel: expressDelivery ? "EXPRESS" : "STANDARD",
+          orderPriority: expressDelivery ? 1 : 0,
           metadata: { clientIp: req.ip },
+
+          statusHistory: {
+            create: {
+              status: "PENDING",
+              changedBy: clientId,
+            },
+          },
         },
         include: { gig: true, freelancer: { include: { user: true } }, statusHistory: true },
       });
@@ -143,47 +185,44 @@ const updateOrderStatus = async (req, res, next) => {
     const updatedOrder = await prisma.$transaction(async (tx) => {
       const order = await tx.order.findUnique({
         where: { id: parseInt(orderId) },
-        include: { client: true, freelancer: true },
+        include: { 
+          client: true, 
+          freelancer: { include: { user: true } } 
+        },
       });
       if (!order) {
         throw new ApiError(404, "Order not found");
       }
 
       const isClient = order.clientId === userId;
-      const isFreelancer = order.freelancer.userId === userId;
+      console.log("order.freelancer:", order.freelancer);
+      console.log("order.freelancer.user:", order.freelancer?.user);
+
+      const isFreelancer = order.freelancer?.user?.id === userId;
+
       if (!isClient && !isFreelancer) {
         throw new ApiError(403, "Forbidden: You can only update your own orders");
       }
 
       const validTransitions = {
-        PENDING: ["ACCEPTED", "CANCELLED"],
-        ACCEPTED: ["IN_PROGRESS", "CANCELLED"],
-        IN_PROGRESS: ["DELIVERED", "CANCELLED"],
-        DELIVERED: ["COMPLETED", "DISPUTED"],
-        DISPUTED: ["COMPLETED", "CANCELLED"],
+        PENDING: ["CURRENT", "REJECTED"],
+        CURRENT: ["COMPLETED", "REJECTED"],
+        COMPLETED: [],
+        REJECTED: [],
       };
       if (!status || !validTransitions[order.status]?.includes(status)) {
         throw new ApiError(400, `Invalid status transition from ${order.status} to ${status}`);
       }
 
       const updateData = { status };
-      if (status === "CANCELLED") {
-        updateData.cancellationReason = req.body.cancellationReason || "Not specified";
+      if (status === "REJECTED") {
+        updateData.cancellationReason =
+          req.body.cancellationReason || "Freelancer rejected the order.";
         updateData.cancellationDate = new Date();
-        await tx.freelancerProfile.update({
-          where: { id: order.freelancerId },
-          data: { activeOrders: { decrement: 1 } },
-        });
-      } else if (status === "COMPLETED") {
+      }
+
+      if (status === "COMPLETED") {
         updateData.completedAt = new Date();
-        await tx.freelancerProfile.update({
-          where: { id: order.freelancerId },
-          data: { activeOrders: { decrement: 1 } },
-        });
-      } else if (extensionReason) {
-        updateData.deliveryExtensions = { increment: 1 };
-        updateData.extensionReason = extensionReason;
-        updateData.deliveryDeadline = new Date(order.deliveryDeadline.getTime() + 7 * 24 * 60 * 60 * 1000);
       }
 
       const updated = await tx.order.update({
@@ -193,13 +232,16 @@ const updateOrderStatus = async (req, res, next) => {
           statusHistory: { create: { status, changedBy: userId } },
           lastNotifiedAt: new Date(),
         },
-        include: { statusHistory: true },
+        include: {
+          statusHistory: true,
+          freelancer: { include: { user: true } }, // ADD THIS!
+        },
       });
 
       // Create notification for status update
       await tx.notification.create({
         data: {
-          userId: isClient ? order.freelancer.userId : order.clientId,
+          userId: isClient ? order.freelancer.user.id : order.clientId,
           type: "ORDER_UPDATE",
           content: `Order #${order.orderNumber} status updated to ${status}.`,
           entityType: "ORDER",
@@ -215,7 +257,7 @@ const updateOrderStatus = async (req, res, next) => {
     await queueNotification({
       orderId: updatedOrder.id,
       clientId: updatedOrder.clientId,
-      freelancerId: updatedOrder.freelancer.userId,
+      freelancerId: updatedOrder.freelancer.user.id,
       orderNumber: updatedOrder.orderNumber,
       status,
     });
@@ -256,7 +298,7 @@ const getOrder = async (req, res, next) => {
     if (!order) {
       throw new ApiError(404, "Order not found");
     }
-    if (order.clientId !== userId && order.freelancer.userId !== userId) {
+    if (order.clientId !== userId && order.freelancer.user.id !== userId) {
       throw new ApiError(403, "Forbidden: You can only view your own orders");
     }
 
@@ -398,7 +440,7 @@ const cancelOrder = async (req, res, next) => {
       if (!order) {
         throw new ApiError(404, "Order not found");
       }
-      if (order.clientId !== userId && order.freelancer.userId !== userId) {
+      if (order.clientId !== userId && order.freelancer.user.id !== userId) {
         throw new ApiError(403, "Forbidden: You can only cancel your own orders");
       }
       if (!["PENDING", "ACCEPTED", "IN_PROGRESS"].includes(order.status)) {
@@ -426,7 +468,7 @@ const cancelOrder = async (req, res, next) => {
       // Notify stakeholders
       await tx.notification.create({
         data: {
-          userId: order.clientId === userId ? order.freelancer.userId : order.clientId,
+          userId: order.clientId === userId ? order.freelancer.user.id : order.clientId,
           type: "ORDER_UPDATE",
           content: `Order #${order.orderNumber} has been cancelled.`,
           entityType: "ORDER",
@@ -442,7 +484,7 @@ const cancelOrder = async (req, res, next) => {
     await queueNotification({
       orderId: updatedOrder.id,
       clientId: updatedOrder.clientId,
-      freelancerId: updatedOrder.freelancer.userId,
+      freelancerId: updatedOrder.freelancer.user.id,
       orderNumber: updatedOrder.orderNumber,
       status: "CANCELLED",
     });
@@ -481,7 +523,7 @@ const getCurrentOrders = async (req, res, next) => {
     const orders = await prisma.order.findMany({
       where: {
         freelancerId: freelancer.id,
-        status: { in: ["ACCEPTED", "IN_PROGRESS"] },
+        status: "CURRENT",
       },
       include: {
         gig: true,
@@ -607,6 +649,49 @@ const getCompletedOrders = async (req, res, next) => {
   }
 };
 
+// Get Rejected Orders
+const getRejectedOrders = async (req, res, next) => {
+  try {
+    if (!req.user || !req.user.id) {
+      throw new ApiError(401, "Unauthorized: User not authenticated");
+    }
+    const userId = req.user.id;
+
+    const freelancer = await prisma.freelancerProfile.findUnique({ where: { userId } });
+    if (!freelancer) {
+      return res.status(200).json(new ApiResponse(200, [], "No freelancer profile found, no rejected orders"));
+    }
+
+    const orders = await prisma.order.findMany({
+      where: {
+        freelancerId: freelancer.id,
+        status: "REJECTED",
+      },
+      include: {
+        gig: true,
+        client: { select: { firstname: true, lastname: true } },
+      },
+      orderBy: { updatedAt: "desc" }, // or completedAt if you prefer
+    });
+
+    // Calculate daysLeft if you want, optional:
+    const ordersWithDaysLeft = orders.map((order) => ({
+      ...order,
+      daysLeft: order.deliveryDeadline
+        ? Math.max(0, Math.ceil((new Date(order.deliveryDeadline) - new Date()) / (1000 * 60 * 60 * 24)))
+        : null,
+    }));
+
+    logger.info(`Retrieved ${orders.length} rejected orders for freelancer ${freelancer.id}`);
+    return res.status(200).json(new ApiResponse(200, ordersWithDaysLeft, "Rejected orders retrieved successfully"));
+  } catch (error) {
+    logger.error(`Error retrieving rejected orders for user ${req.user?.id}: ${error.message}`, { error });
+    return next(new ApiError(500, "Failed to retrieve rejected orders", error.message));
+  }
+};
+
+
+
 export {
   createOrder,
   updateOrderStatus,
@@ -617,4 +702,5 @@ export {
   getCurrentOrders,
   getPendingOrders,
   getCompletedOrders,
+  getRejectedOrders,
 };

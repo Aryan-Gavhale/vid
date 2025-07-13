@@ -460,7 +460,7 @@ const getGig = async (req, res, next) => {
           },
         },
         orders: {
-          where: { status: { not: "CANCELLED" } },
+          where: { status: { not: "REJECTED" } },
           select: {
             id: true,
             client: { select: { firstname: true, lastname: true } },
