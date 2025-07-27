@@ -509,3 +509,363 @@
 {"jobId":1,"level":"info","message":"User joined job room","room":"job:1","timestamp":"2025-07-11T10:19:23.009Z","userId":4}
 {"jobId":1,"level":"info","message":"User joined job room","room":"job:1","timestamp":"2025-07-11T10:19:23.855Z","userId":4}
 {"level":"info","message":"User disconnected","socketId":"ici6qGbCzAGJft3vAAAB","timestamp":"2025-07-11T10:19:35.193Z","userId":4}
+{"level":"info","message":"User authenticated","socketId":"yFXbZhi8Qa5ApV0YAAAB","timestamp":"2025-07-12T17:31:55.652Z","userId":1}
+{"level":"info","message":"User connected","socketId":"yFXbZhi8Qa5ApV0YAAAB","timestamp":"2025-07-12T17:31:55.654Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T17:31:55.991Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T17:31:55.993Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"yFXbZhi8Qa5ApV0YAAAB","timestamp":"2025-07-12T17:32:00.628Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"lGxARlqDrFsuEA9gAAAD","timestamp":"2025-07-12T17:34:18.950Z","userId":1}
+{"level":"info","message":"User connected","socketId":"lGxARlqDrFsuEA9gAAAD","timestamp":"2025-07-12T17:34:18.951Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T17:34:19.174Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T17:34:21.529Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"lGxARlqDrFsuEA9gAAAD","timestamp":"2025-07-12T18:18:59.148Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"brmcPUX_XW2uBtXDAAAF","timestamp":"2025-07-12T18:19:03.767Z","userId":1}
+{"level":"info","message":"User connected","socketId":"brmcPUX_XW2uBtXDAAAF","timestamp":"2025-07-12T18:19:03.769Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T18:19:03.982Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T18:19:05.149Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"brmcPUX_XW2uBtXDAAAF","timestamp":"2025-07-12T18:23:12.215Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"HQMEQdoMovVTkCZoAAAH","timestamp":"2025-07-12T18:23:13.155Z","userId":1}
+{"level":"info","message":"User connected","socketId":"HQMEQdoMovVTkCZoAAAH","timestamp":"2025-07-12T18:23:13.156Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T18:23:13.364Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T18:23:13.364Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"HQMEQdoMovVTkCZoAAAH","timestamp":"2025-07-12T19:02:48.645Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"1RxUSwhATSzloYXKAAAJ","timestamp":"2025-07-12T19:02:51.978Z","userId":1}
+{"level":"info","message":"User connected","socketId":"1RxUSwhATSzloYXKAAAJ","timestamp":"2025-07-12T19:02:51.979Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T19:02:52.231Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-12T19:02:52.232Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"1RxUSwhATSzloYXKAAAJ","timestamp":"2025-07-13T06:37:33.028Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"0IDTohkMPlYyPnsWAAAL","timestamp":"2025-07-13T06:37:36.898Z","userId":1}
+{"level":"info","message":"User connected","socketId":"0IDTohkMPlYyPnsWAAAL","timestamp":"2025-07-13T06:37:36.899Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T06:37:37.095Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T06:37:38.020Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"0IDTohkMPlYyPnsWAAAL","timestamp":"2025-07-13T07:02:20.702Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"gDvgENPVDQJQpbzrAAAN","timestamp":"2025-07-13T07:02:27.222Z","userId":1}
+{"level":"info","message":"User connected","socketId":"gDvgENPVDQJQpbzrAAAN","timestamp":"2025-07-13T07:02:27.224Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:02:27.537Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:02:28.788Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"gDvgENPVDQJQpbzrAAAN","timestamp":"2025-07-13T07:43:42.739Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"XmSKXAqof8HzpOdyAAAP","timestamp":"2025-07-13T07:45:27.520Z","userId":1}
+{"level":"info","message":"User connected","socketId":"XmSKXAqof8HzpOdyAAAP","timestamp":"2025-07-13T07:45:27.521Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:45:27.718Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:45:28.747Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"XmSKXAqof8HzpOdyAAAP","timestamp":"2025-07-13T07:50:31.179Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"2T9r7-ZVDb_uACTcAAAR","timestamp":"2025-07-13T07:50:35.117Z","userId":1}
+{"level":"info","message":"User connected","socketId":"2T9r7-ZVDb_uACTcAAAR","timestamp":"2025-07-13T07:50:35.118Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:50:35.304Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T07:50:36.234Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"2T9r7-ZVDb_uACTcAAAR","timestamp":"2025-07-13T08:19:06.104Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"B_iEtLmMwiNOJ2O6AAAT","timestamp":"2025-07-13T08:19:09.979Z","userId":1}
+{"level":"info","message":"User connected","socketId":"B_iEtLmMwiNOJ2O6AAAT","timestamp":"2025-07-13T08:19:09.980Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T08:19:10.163Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T08:19:11.144Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"B_iEtLmMwiNOJ2O6AAAT","timestamp":"2025-07-13T08:22:09.443Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"JanDo0vDWQR3cLNEAAAV","timestamp":"2025-07-13T08:29:31.001Z","userId":1}
+{"level":"info","message":"User connected","socketId":"JanDo0vDWQR3cLNEAAAV","timestamp":"2025-07-13T08:29:31.003Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T08:29:31.180Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-13T08:29:32.121Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"JanDo0vDWQR3cLNEAAAV","timestamp":"2025-07-13T08:29:34.315Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"cXyvhqSROhPrF8FxAAAX","timestamp":"2025-07-13T10:15:38.088Z","userId":4}
+{"level":"info","message":"User connected","socketId":"cXyvhqSROhPrF8FxAAAX","timestamp":"2025-07-13T10:15:38.089Z","userId":4}
+{"jobId":1,"level":"info","message":"User joined job room","room":"job:1","timestamp":"2025-07-13T10:15:38.328Z","userId":4}
+{"level":"info","message":"User disconnected","socketId":"cXyvhqSROhPrF8FxAAAX","timestamp":"2025-07-13T10:15:39.288Z","userId":4}
+{"jobId":1,"level":"info","message":"User joined job room","room":"job:1","timestamp":"2025-07-13T10:15:39.446Z","userId":4}
+{"level":"info","message":"User authenticated","socketId":"E6hvpITcL0g2OWuUAAAB","timestamp":"2025-07-15T08:53:12.184Z","userId":6}
+{"level":"info","message":"User connected","socketId":"E6hvpITcL0g2OWuUAAAB","timestamp":"2025-07-15T08:53:12.187Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-15T08:53:12.663Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-15T08:53:13.899Z","userId":6}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"892deae4-bed7-419a-ab3a-109bf6471ffc","timestamp":"2025-07-15T08:53:27.857Z","userId":6}
+{"level":"info","message":"User disconnected","socketId":"E6hvpITcL0g2OWuUAAAB","timestamp":"2025-07-15T08:53:52.002Z","userId":6}
+{"level":"info","message":"User authenticated","socketId":"8_a9DoHEaEK5KOhlAAAD","timestamp":"2025-07-15T08:54:32.623Z","userId":5}
+{"level":"info","message":"User connected","socketId":"8_a9DoHEaEK5KOhlAAAD","timestamp":"2025-07-15T08:54:32.624Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-15T08:54:32.784Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"521e1599-aa40-4989-98a3-f3f6e6156608","timestamp":"2025-07-15T08:55:42.385Z","userId":5}
+{"level":"info","message":"User disconnected","socketId":"8_a9DoHEaEK5KOhlAAAD","timestamp":"2025-07-15T08:55:55.714Z","userId":5}
+{"level":"info","message":"User authenticated","socketId":"zeHmcCV01Yhj3qMuAAAF","timestamp":"2025-07-15T08:56:05.320Z","userId":6}
+{"level":"info","message":"User connected","socketId":"zeHmcCV01Yhj3qMuAAAF","timestamp":"2025-07-15T08:56:05.321Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-15T08:56:05.423Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-15T08:56:05.580Z","userId":6}
+{"level":"info","message":"User disconnected","socketId":"zeHmcCV01Yhj3qMuAAAF","timestamp":"2025-07-15T08:56:32.338Z","userId":6}
+{"level":"info","message":"User authenticated","socketId":"Cqp3TUWr1lhFc1FtAAAB","timestamp":"2025-07-20T14:08:47.641Z","userId":6}
+{"level":"info","message":"User connected","socketId":"Cqp3TUWr1lhFc1FtAAAB","timestamp":"2025-07-20T14:08:47.644Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-20T14:08:47.866Z","userId":6}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-20T14:08:48.836Z","userId":6}
+{"level":"info","message":"User disconnected","socketId":"Cqp3TUWr1lhFc1FtAAAB","timestamp":"2025-07-20T14:08:52.148Z","userId":6}
+{"level":"info","message":"User authenticated","socketId":"1q_uF2Pzj7v6zo6VAAAD","timestamp":"2025-07-20T14:09:49.218Z","userId":2}
+{"level":"info","message":"User connected","socketId":"1q_uF2Pzj7v6zo6VAAAD","timestamp":"2025-07-20T14:09:49.219Z","userId":2}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:09:49.318Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"1q_uF2Pzj7v6zo6VAAAD","timestamp":"2025-07-20T14:10:39.473Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"6Uq8A5rpIYKqW7nvAAAF","timestamp":"2025-07-20T14:10:50.874Z","userId":1}
+{"level":"info","message":"User connected","socketId":"6Uq8A5rpIYKqW7nvAAAF","timestamp":"2025-07-20T14:10:50.876Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:10:51.029Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:10:51.194Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"6Uq8A5rpIYKqW7nvAAAF","timestamp":"2025-07-20T14:10:54.132Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"ib5LazvzVjHlV602AAAH","timestamp":"2025-07-20T14:11:08.580Z","userId":1}
+{"level":"info","message":"User connected","socketId":"ib5LazvzVjHlV602AAAH","timestamp":"2025-07-20T14:11:08.582Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:11:08.684Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:11:08.919Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:11:08.920Z","userId":1}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-20T14:11:08.920Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"ib5LazvzVjHlV602AAAH","timestamp":"2025-07-20T14:11:10.853Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"j8abmHQ4TnECuJD0AAAJ","timestamp":"2025-07-20T14:11:24.641Z","userId":1}
+{"level":"info","message":"User connected","socketId":"j8abmHQ4TnECuJD0AAAJ","timestamp":"2025-07-20T14:11:24.641Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:11:24.761Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:11:25.041Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:11:25.042Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:11:25.042Z","userId":1}
+{"jobId":2,"level":"info","message":"Message sent","messageId":"ffc19218-e075-4069-8910-b0d500ffa68e","timestamp":"2025-07-20T14:11:49.808Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"j8abmHQ4TnECuJD0AAAJ","timestamp":"2025-07-20T14:11:53.988Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"fYvClsUOBellgEawAAAL","timestamp":"2025-07-20T14:12:01.734Z","userId":1}
+{"level":"info","message":"User connected","socketId":"fYvClsUOBellgEawAAAL","timestamp":"2025-07-20T14:12:01.735Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:12:01.899Z","userId":1}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-20T14:12:02.075Z","userId":1}
+{"level":"info","message":"User disconnected","socketId":"fYvClsUOBellgEawAAAL","timestamp":"2025-07-20T14:12:15.332Z","userId":1}
+{"level":"info","message":"User authenticated","socketId":"GEIwbbly1UwBlvEvAAAB","timestamp":"2025-07-24T17:49:55.408Z","userId":5}
+{"level":"info","message":"User connected","socketId":"GEIwbbly1UwBlvEvAAAB","timestamp":"2025-07-24T17:49:55.414Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-24T17:49:55.646Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"6de3d016-c19b-48b2-8f71-3ea0602a825d","timestamp":"2025-07-24T17:52:29.630Z","userId":5}
+{"level":"info","message":"User disconnected","socketId":"GEIwbbly1UwBlvEvAAAB","timestamp":"2025-07-24T18:00:36.339Z","userId":5}
+{"level":"info","message":"User authenticated","socketId":"llJQNJr55LoWSAR_AAAD","timestamp":"2025-07-24T18:00:37.696Z","userId":5}
+{"level":"info","message":"User connected","socketId":"llJQNJr55LoWSAR_AAAD","timestamp":"2025-07-24T18:00:37.697Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-24T18:00:37.936Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-24T18:00:38.926Z","userId":5}
+{"level":"info","message":"User disconnected","socketId":"llJQNJr55LoWSAR_AAAD","timestamp":"2025-07-24T18:00:54.044Z","userId":5}
+{"level":"info","message":"User authenticated","socketId":"MD-BEr-GMPyPxA1hAAAF","timestamp":"2025-07-24T18:14:37.209Z","userId":5}
+{"level":"info","message":"User connected","socketId":"MD-BEr-GMPyPxA1hAAAF","timestamp":"2025-07-24T18:14:37.210Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-24T18:14:37.437Z","userId":5}
+{"level":"info","message":"User disconnected","socketId":"MD-BEr-GMPyPxA1hAAAF","timestamp":"2025-07-24T18:16:27.447Z","userId":5}
+{"level":"info","message":"User authenticated","socketId":"9Y_jgiceI06nZnfhAAAH","timestamp":"2025-07-24T18:16:29.564Z","userId":5}
+{"level":"info","message":"User connected","socketId":"9Y_jgiceI06nZnfhAAAH","timestamp":"2025-07-24T18:16:29.565Z","userId":5}
+{"jobId":5,"level":"info","message":"User joined job room","room":"job:5","timestamp":"2025-07-24T18:16:29.677Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"3c34284c-3802-43f9-ba13-4744e600c67c","timestamp":"2025-07-24T18:17:38.967Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"cdf32063-9247-4c77-b988-ba88dc461524","timestamp":"2025-07-24T18:17:42.419Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"f4995fc3-499a-4f4e-8176-b43999b4973e","timestamp":"2025-07-24T18:17:45.337Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"71110a0d-3b6b-4dbc-953a-c92624e1d731","timestamp":"2025-07-24T18:17:47.971Z","userId":5}
+{"jobId":5,"level":"info","message":"Message sent","messageId":"241b8518-426d-4ed7-b341-838915f46619","timestamp":"2025-07-24T18:17:49.817Z","userId":5}
+{"level":"info","message":"User disconnected","socketId":"9Y_jgiceI06nZnfhAAAH","timestamp":"2025-07-24T18:20:23.639Z","userId":5}
+{"level":"info","message":"User authenticated","socketId":"qqCVwitfWX4rB3shAAAB","timestamp":"2025-07-24T18:28:50.873Z","userId":2}
+{"level":"info","message":"User connected","socketId":"qqCVwitfWX4rB3shAAAB","timestamp":"2025-07-24T18:28:50.877Z","userId":2}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-24T18:28:51.090Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"qqCVwitfWX4rB3shAAAB","timestamp":"2025-07-24T18:34:43.277Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"JCj0czo7Hag4TxhWAAAD","timestamp":"2025-07-24T18:34:47.796Z","userId":2}
+{"level":"info","message":"User connected","socketId":"JCj0czo7Hag4TxhWAAAD","timestamp":"2025-07-24T18:34:47.797Z","userId":2}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-24T18:34:48.085Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"JCj0czo7Hag4TxhWAAAD","timestamp":"2025-07-24T18:35:27.076Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"d4PexjnB95BEh9LtAAAF","timestamp":"2025-07-24T18:35:28.039Z","userId":2}
+{"level":"info","message":"User connected","socketId":"d4PexjnB95BEh9LtAAAF","timestamp":"2025-07-24T18:35:28.041Z","userId":2}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-24T18:35:28.161Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"d4PexjnB95BEh9LtAAAF","timestamp":"2025-07-25T15:58:58.430Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"_mTPgiSwY-O_JqenAAAH","timestamp":"2025-07-26T05:36:16.828Z","userId":2}
+{"level":"info","message":"User connected","socketId":"_mTPgiSwY-O_JqenAAAH","timestamp":"2025-07-26T05:36:16.829Z","userId":2}
+{"jobId":3,"level":"info","message":"User joined job room","room":"job:3","timestamp":"2025-07-26T05:36:17.142Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"_mTPgiSwY-O_JqenAAAH","timestamp":"2025-07-26T05:36:19.674Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"MKO2c_aUpuISJM7pAAAJ","timestamp":"2025-07-26T05:36:19.868Z","userId":2}
+{"level":"info","message":"User connected","socketId":"MKO2c_aUpuISJM7pAAAJ","timestamp":"2025-07-26T05:36:19.869Z","userId":2}
+{"jobId":2,"level":"info","message":"User joined job room","room":"job:2","timestamp":"2025-07-26T05:36:20.028Z","userId":2}
+{"level":"info","message":"User disconnected","socketId":"MKO2c_aUpuISJM7pAAAJ","timestamp":"2025-07-26T05:36:29.883Z","userId":2}
+{"level":"info","message":"User authenticated","socketId":"6AEwWwcpADrVg22iAAAB","timestamp":"2025-07-26T05:54:55.068Z","userId":8}
+{"level":"info","message":"User connected","socketId":"6AEwWwcpADrVg22iAAAB","timestamp":"2025-07-26T05:54:55.072Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-26T05:54:55.077Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error sending message","timestamp":"2025-07-26T05:55:04.320Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error sending message","timestamp":"2025-07-26T05:55:11.960Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"6AEwWwcpADrVg22iAAAB","timestamp":"2025-07-26T05:57:31.039Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"2kFxbV0CtxjVYTUGAAAD","timestamp":"2025-07-26T05:57:32.417Z","userId":8}
+{"level":"info","message":"User connected","socketId":"2kFxbV0CtxjVYTUGAAAD","timestamp":"2025-07-26T05:57:32.418Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-26T05:57:32.420Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error sending message","timestamp":"2025-07-26T05:57:39.092Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"t_4csx8yo6-NLqRVAAAB","timestamp":"2025-07-26T05:59:19.914Z","userId":8}
+{"level":"info","message":"User connected","socketId":"t_4csx8yo6-NLqRVAAAB","timestamp":"2025-07-26T05:59:19.916Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"t_4csx8yo6-NLqRVAAAB","timestamp":"2025-07-26T05:59:42.912Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"_3eC67NViKxSCaRtAAAD","timestamp":"2025-07-26T05:59:45.995Z","userId":8}
+{"level":"info","message":"User connected","socketId":"_3eC67NViKxSCaRtAAAD","timestamp":"2025-07-26T05:59:45.997Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T05:59:46.736Z","userId":8}
+{"entityId":"28","entityType":"order","error":"\nInvalid `prisma.message.create()` invocation:\n\n{\n  data: {\n    orderId: 28,\n    senderId: 8,\n    content: \"hii\",\n    attachments: [],\n    replyTo: null,\n    timestamp: new Date(\"2025-07-26T05:59:53.652Z\"),\n+   job: {\n+     create: JobCreateWithoutMessagesInput | JobUncheckedCreateWithoutMessagesInput,\n+     connectOrCreate: JobCreateOrConnectWithoutMessagesInput,\n+     connect: JobWhereUniqueInput\n+   }\n  },\n  include: {\n    sender: {\n      select: {\n        id: true,\n        firstname: true,\n        lastname: true,\n        profilePicture: true\n      }\n    }\n  }\n}\n\nArgument `job` is missing.","level":"error","message":"Error sending message","timestamp":"2025-07-26T05:59:53.657Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"_3eC67NViKxSCaRtAAAD","timestamp":"2025-07-26T06:03:49.201Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"aUPQMTLDMhtsJ0pHAAAF","timestamp":"2025-07-26T06:03:51.182Z","userId":8}
+{"level":"info","message":"User connected","socketId":"aUPQMTLDMhtsJ0pHAAAF","timestamp":"2025-07-26T06:03:51.183Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T06:03:51.529Z","userId":8}
+{"entityId":"28","entityType":"order","error":"\nInvalid `prisma.message.create()` invocation:\n\n{\n  data: {\n    orderId: 28,\n    senderId: 8,\n    content: \"hi\",\n    attachments: [],\n    replyTo: null,\n    timestamp: new Date(\"2025-07-26T06:06:48.998Z\"),\n+   job: {\n+     create: JobCreateWithoutMessagesInput | JobUncheckedCreateWithoutMessagesInput,\n+     connectOrCreate: JobCreateOrConnectWithoutMessagesInput,\n+     connect: JobWhereUniqueInput\n+   }\n  },\n  include: {\n    sender: {\n      select: {\n        id: true,\n        firstname: true,\n        lastname: true,\n        profilePicture: true\n      }\n    }\n  }\n}\n\nArgument `job` is missing.","level":"error","message":"Error sending message","timestamp":"2025-07-26T06:06:49.000Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"aUPQMTLDMhtsJ0pHAAAF","timestamp":"2025-07-26T06:28:21.335Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"3iQIN2qtFaMCsW-OAAAH","timestamp":"2025-07-26T06:28:25.668Z","userId":8}
+{"level":"info","message":"User connected","socketId":"3iQIN2qtFaMCsW-OAAAH","timestamp":"2025-07-26T06:28:25.668Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T06:28:26.331Z","userId":8}
+{"entityId":"28","entityType":"order","error":"\nInvalid `prisma.message.create()` invocation:\n\n{\n  data: {\n    orderId: 28,\n    senderId: 8,\n    content: \"hi\",\n    attachments: [],\n    replyTo: null,\n    timestamp: new Date(\"2025-07-26T07:30:13.460Z\"),\n+   job: {\n+     create: JobCreateWithoutMessagesInput | JobUncheckedCreateWithoutMessagesInput,\n+     connectOrCreate: JobCreateOrConnectWithoutMessagesInput,\n+     connect: JobWhereUniqueInput\n+   }\n  },\n  include: {\n    sender: {\n      select: {\n        id: true,\n        firstname: true,\n        lastname: true,\n        profilePicture: true\n      }\n    }\n  }\n}\n\nArgument `job` is missing.","level":"error","message":"Error sending message","timestamp":"2025-07-26T07:30:13.463Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"5mSoR2tkotrbQ_7GAAAB","timestamp":"2025-07-26T07:31:55.093Z","userId":8}
+{"level":"info","message":"User connected","socketId":"5mSoR2tkotrbQ_7GAAAB","timestamp":"2025-07-26T07:31:55.096Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"YThQIwU3exTTLBBeAAAB","timestamp":"2025-07-26T07:34:09.066Z","userId":8}
+{"level":"info","message":"User connected","socketId":"YThQIwU3exTTLBBeAAAB","timestamp":"2025-07-26T07:34:09.070Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"0e52366f-5b29-492c-9ca1-c440e1204949","timestamp":"2025-07-26T07:34:19.808Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"c300f9c7-fee4-4043-a720-090ac5c557d2","timestamp":"2025-07-26T07:34:34.733Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"1b794b0b-71cd-4251-9577-bef69e40f02c","timestamp":"2025-07-26T07:34:51.493Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"YThQIwU3exTTLBBeAAAB","timestamp":"2025-07-26T07:38:46.463Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"N_pN-5j5aHxpv-0EAAAD","timestamp":"2025-07-26T07:38:46.694Z","userId":8}
+{"level":"info","message":"User connected","socketId":"N_pN-5j5aHxpv-0EAAAD","timestamp":"2025-07-26T07:38:46.694Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T07:38:47.032Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"139a0833-3c8f-4e0d-917e-7021d9a93507","timestamp":"2025-07-26T07:39:31.203Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"615a65b2-66d7-42ac-bb41-fe0054bf9d4d","timestamp":"2025-07-26T07:39:39.850Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"b06cc1aa-a933-4362-8180-a3f119c86d31","timestamp":"2025-07-26T07:39:49.904Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"N_pN-5j5aHxpv-0EAAAD","timestamp":"2025-07-26T07:39:52.941Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"O4OqFHi_3PIopdTeAAAF","timestamp":"2025-07-26T07:39:56.331Z","userId":8}
+{"level":"info","message":"User connected","socketId":"O4OqFHi_3PIopdTeAAAF","timestamp":"2025-07-26T07:39:56.332Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T07:39:56.730Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"O4OqFHi_3PIopdTeAAAF","timestamp":"2025-07-26T07:42:46.589Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"f0uUPHhuv5c-Vv-hAAAH","timestamp":"2025-07-26T07:42:48.665Z","userId":8}
+{"level":"info","message":"User connected","socketId":"f0uUPHhuv5c-Vv-hAAAH","timestamp":"2025-07-26T07:42:48.666Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T07:42:48.973Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"875ef2f8-b1b1-42c1-8bb4-a04000ce978a","timestamp":"2025-07-26T09:19:10.623Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"f0uUPHhuv5c-Vv-hAAAH","timestamp":"2025-07-26T09:19:26.276Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"_D3yNYG1KFj4kFZRAAAJ","timestamp":"2025-07-26T09:19:30.472Z","userId":8}
+{"level":"info","message":"User connected","socketId":"_D3yNYG1KFj4kFZRAAAJ","timestamp":"2025-07-26T09:19:30.473Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:19:30.821Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"4_OTF_cxus0e99FaAAAB","timestamp":"2025-07-26T09:20:13.822Z","userId":8}
+{"level":"info","message":"User connected","socketId":"4_OTF_cxus0e99FaAAAB","timestamp":"2025-07-26T09:20:13.825Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"8749f59d-badf-4e6c-97f6-61c9a5b1b74e","timestamp":"2025-07-26T09:21:12.980Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"RXasnDidwx5pr_boAAAB","timestamp":"2025-07-26T09:24:21.791Z","userId":8}
+{"level":"info","message":"User connected","socketId":"RXasnDidwx5pr_boAAAB","timestamp":"2025-07-26T09:24:21.794Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"RXasnDidwx5pr_boAAAB","timestamp":"2025-07-26T09:25:53.998Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"bcExkYKkKx2MBo8GAAAD","timestamp":"2025-07-26T09:25:57.311Z","userId":8}
+{"level":"info","message":"User connected","socketId":"bcExkYKkKx2MBo8GAAAD","timestamp":"2025-07-26T09:25:57.312Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:25:58.042Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"b41763e0-2498-4bff-b9c6-5cf7d7f86439","timestamp":"2025-07-26T09:26:12.476Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"bcExkYKkKx2MBo8GAAAD","timestamp":"2025-07-26T09:26:16.286Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"kCY15ttK6RSxGcM-AAAF","timestamp":"2025-07-26T09:26:18.484Z","userId":8}
+{"level":"info","message":"User connected","socketId":"kCY15ttK6RSxGcM-AAAF","timestamp":"2025-07-26T09:26:18.485Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:26:18.837Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"73GCJfg4GD3UuEyoAAAB","timestamp":"2025-07-26T09:32:19.819Z","userId":8}
+{"level":"info","message":"User connected","socketId":"73GCJfg4GD3UuEyoAAAB","timestamp":"2025-07-26T09:32:19.822Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"iBD3tWo6OOCcurO0AAAB","timestamp":"2025-07-26T09:32:48.847Z","userId":8}
+{"level":"info","message":"User connected","socketId":"iBD3tWo6OOCcurO0AAAB","timestamp":"2025-07-26T09:32:48.851Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"wgkkpa5QEJnwTWnFAAAB","timestamp":"2025-07-26T09:33:14.957Z","userId":8}
+{"level":"info","message":"User connected","socketId":"wgkkpa5QEJnwTWnFAAAB","timestamp":"2025-07-26T09:33:14.961Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"xnFiRiIrttDFASjlAAAB","timestamp":"2025-07-26T09:33:40.006Z","userId":8}
+{"level":"info","message":"User connected","socketId":"xnFiRiIrttDFASjlAAAB","timestamp":"2025-07-26T09:33:40.009Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"xnFiRiIrttDFASjlAAAB","timestamp":"2025-07-26T09:34:29.811Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"452ylMLsQw-__MGoAAAD","timestamp":"2025-07-26T09:34:33.214Z","userId":8}
+{"level":"info","message":"User connected","socketId":"452ylMLsQw-__MGoAAAD","timestamp":"2025-07-26T09:34:33.215Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:34:33.890Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"Message sent","messageId":"d0aac99a-27f7-4381-87dd-f270e0ac5584","timestamp":"2025-07-26T09:34:40.972Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"452ylMLsQw-__MGoAAAD","timestamp":"2025-07-26T09:34:44.133Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"rTt4nmRwT9EgRGEZAAAF","timestamp":"2025-07-26T09:34:46.304Z","userId":8}
+{"level":"info","message":"User connected","socketId":"rTt4nmRwT9EgRGEZAAAF","timestamp":"2025-07-26T09:34:46.306Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:34:46.667Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"oLN18OEN_K7Z3LguAAAB","timestamp":"2025-07-26T09:36:40.003Z","userId":8}
+{"level":"info","message":"User connected","socketId":"oLN18OEN_K7Z3LguAAAB","timestamp":"2025-07-26T09:36:40.008Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T09:36:40.736Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"LU4oMxNU6ocq2QKkAAAB","timestamp":"2025-07-26T09:38:52.690Z","userId":8}
+{"level":"info","message":"User connected","socketId":"LU4oMxNU6ocq2QKkAAAB","timestamp":"2025-07-26T09:38:52.692Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"r5F_mxKhlKgallURAAAB","timestamp":"2025-07-26T10:52:21.560Z","userId":8}
+{"level":"info","message":"User connected","socketId":"r5F_mxKhlKgallURAAAB","timestamp":"2025-07-26T10:52:21.565Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:52:22.616Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"r5F_mxKhlKgallURAAAB","timestamp":"2025-07-26T10:52:23.331Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"fyUXpnWVoHORok-YAAAD","timestamp":"2025-07-26T10:53:28.796Z","userId":8}
+{"level":"info","message":"User connected","socketId":"fyUXpnWVoHORok-YAAAD","timestamp":"2025-07-26T10:53:28.798Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:53:29.156Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"fyUXpnWVoHORok-YAAAD","timestamp":"2025-07-26T10:53:35.672Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"AZe9WRleREBBPylQAAAF","timestamp":"2025-07-26T10:53:35.893Z","userId":8}
+{"level":"info","message":"User connected","socketId":"AZe9WRleREBBPylQAAAF","timestamp":"2025-07-26T10:53:35.894Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:53:36.235Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"AZe9WRleREBBPylQAAAF","timestamp":"2025-07-26T10:53:46.669Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"mb_aUB_WwfTFNJOfAAAH","timestamp":"2025-07-26T10:53:46.897Z","userId":8}
+{"level":"info","message":"User connected","socketId":"mb_aUB_WwfTFNJOfAAAH","timestamp":"2025-07-26T10:53:46.898Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:53:47.260Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"mb_aUB_WwfTFNJOfAAAH","timestamp":"2025-07-26T10:53:56.670Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"u0AG25t0IMsyHv2dAAAJ","timestamp":"2025-07-26T10:53:56.853Z","userId":8}
+{"level":"info","message":"User connected","socketId":"u0AG25t0IMsyHv2dAAAJ","timestamp":"2025-07-26T10:53:56.853Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:53:57.281Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"u0AG25t0IMsyHv2dAAAJ","timestamp":"2025-07-26T10:54:06.671Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"OFtXFody7lWOajyTAAAL","timestamp":"2025-07-26T10:54:06.915Z","userId":8}
+{"level":"info","message":"User connected","socketId":"OFtXFody7lWOajyTAAAL","timestamp":"2025-07-26T10:54:06.915Z","userId":8}
+{"entityId":28,"entityType":"order","level":"info","message":"User joined room","room":"order:28","timestamp":"2025-07-26T10:54:07.250Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"OFtXFody7lWOajyTAAAL","timestamp":"2025-07-26T10:57:02.308Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"-KfIpSFMGZPd3jdUAAAB","timestamp":"2025-07-26T11:17:21.793Z","userId":8}
+{"level":"info","message":"User connected","socketId":"-KfIpSFMGZPd3jdUAAAB","timestamp":"2025-07-26T11:17:21.796Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-26T11:17:21.801Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"-KfIpSFMGZPd3jdUAAAB","timestamp":"2025-07-26T11:18:48.446Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"tyOEKWhKP7UWPHCHAAAD","timestamp":"2025-07-26T11:19:23.087Z","userId":7}
+{"level":"info","message":"User connected","socketId":"tyOEKWhKP7UWPHCHAAAD","timestamp":"2025-07-26T11:19:23.088Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:19:23.280Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:19:24.230Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"f5b6e2a8-863e-4b03-85e2-1eb1e59b4992","timestamp":"2025-07-26T11:26:48.684Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"e7e5360e-e774-4603-be03-2c76243f7194","timestamp":"2025-07-26T11:26:56.799Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"tyOEKWhKP7UWPHCHAAAD","timestamp":"2025-07-26T11:27:08.568Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"8SZ6o3qE6Mz3bet1AAAF","timestamp":"2025-07-26T11:27:21.652Z","userId":8}
+{"level":"info","message":"User connected","socketId":"8SZ6o3qE6Mz3bet1AAAF","timestamp":"2025-07-26T11:27:21.653Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-26T11:27:21.655Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"lu6PHNPl9sENoAVhAAAB","timestamp":"2025-07-26T11:31:57.982Z","userId":8}
+{"level":"info","message":"User connected","socketId":"lu6PHNPl9sENoAVhAAAB","timestamp":"2025-07-26T11:31:57.986Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"7Zd4Exwmu6SdbW7IAAAB","timestamp":"2025-07-26T11:32:13.901Z","userId":8}
+{"level":"info","message":"User connected","socketId":"7Zd4Exwmu6SdbW7IAAAB","timestamp":"2025-07-26T11:32:13.903Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"7Zd4Exwmu6SdbW7IAAAB","timestamp":"2025-07-26T11:33:16.790Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"wp7Qo9SOphWLYFpAAAAD","timestamp":"2025-07-26T11:33:18.968Z","userId":8}
+{"level":"info","message":"User connected","socketId":"wp7Qo9SOphWLYFpAAAAD","timestamp":"2025-07-26T11:33:18.970Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-26T11:33:18.978Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"wp7Qo9SOphWLYFpAAAAD","timestamp":"2025-07-26T11:33:24.562Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"AUvgq3vDeyPDDJXMAAAF","timestamp":"2025-07-26T11:33:33.673Z","userId":7}
+{"level":"info","message":"User connected","socketId":"AUvgq3vDeyPDDJXMAAAF","timestamp":"2025-07-26T11:33:33.675Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:33:33.883Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:33:33.885Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"AUvgq3vDeyPDDJXMAAAF","timestamp":"2025-07-26T11:33:46.999Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"DUXgR9VzMdIa4LOVAAAH","timestamp":"2025-07-26T11:33:59.597Z","userId":7}
+{"level":"info","message":"User connected","socketId":"DUXgR9VzMdIa4LOVAAAH","timestamp":"2025-07-26T11:33:59.598Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:33:59.702Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:33:59.703Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"DUXgR9VzMdIa4LOVAAAH","timestamp":"2025-07-26T11:34:06.408Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"mfQWUh8yQRrloisoAAAB","timestamp":"2025-07-26T11:36:21.777Z","userId":7}
+{"level":"info","message":"User connected","socketId":"mfQWUh8yQRrloisoAAAB","timestamp":"2025-07-26T11:36:21.780Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:36:21.995Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:36:22.986Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"mfQWUh8yQRrloisoAAAB","timestamp":"2025-07-26T11:36:25.194Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"XaZUWh3rIEbCg0fMAAAD","timestamp":"2025-07-26T11:48:18.247Z","userId":7}
+{"level":"info","message":"User connected","socketId":"XaZUWh3rIEbCg0fMAAAD","timestamp":"2025-07-26T11:48:18.249Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:48:18.467Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T11:48:19.410Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"XaZUWh3rIEbCg0fMAAAD","timestamp":"2025-07-26T12:10:09.476Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"GVJXUVQ5Ytql9fRjAAAF","timestamp":"2025-07-26T12:10:14.786Z","userId":7}
+{"level":"info","message":"User connected","socketId":"GVJXUVQ5Ytql9fRjAAAF","timestamp":"2025-07-26T12:10:14.788Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T12:10:15.062Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T12:10:16.816Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"GVJXUVQ5Ytql9fRjAAAF","timestamp":"2025-07-26T13:11:30.939Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"s0QZYsfIfqk8qQnFAAAH","timestamp":"2025-07-26T13:11:35.221Z","userId":7}
+{"level":"info","message":"User connected","socketId":"s0QZYsfIfqk8qQnFAAAH","timestamp":"2025-07-26T13:11:35.222Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T13:11:35.504Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-26T13:11:36.523Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"s0QZYsfIfqk8qQnFAAAH","timestamp":"2025-07-26T13:43:44.961Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"6ATaiinsA1NBWYY-AAAB","timestamp":"2025-07-27T15:13:45.308Z","userId":7}
+{"level":"info","message":"User connected","socketId":"6ATaiinsA1NBWYY-AAAB","timestamp":"2025-07-27T15:13:45.310Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T15:13:45.557Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T15:13:46.547Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"cacf7e94-44a7-4b2c-9e6b-662302edf2b0","timestamp":"2025-07-27T15:13:51.354Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"6ATaiinsA1NBWYY-AAAB","timestamp":"2025-07-27T15:14:13.621Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"QPOj-2g-0Bb5ajAFAAAB","timestamp":"2025-07-27T15:45:24.786Z","userId":7}
+{"level":"info","message":"User connected","socketId":"QPOj-2g-0Bb5ajAFAAAB","timestamp":"2025-07-27T15:45:24.790Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T15:45:25.171Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T15:45:25.172Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"00d33e49-3be5-49c6-9d7a-534de524ec59","timestamp":"2025-07-27T15:45:31.509Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"10162fc5-7e78-4793-a784-a93fb39de817","timestamp":"2025-07-27T15:45:35.890Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"QPOj-2g-0Bb5ajAFAAAB","timestamp":"2025-07-27T15:45:43.315Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"fIyuQoDO_TZuJrb2AAAD","timestamp":"2025-07-27T15:46:16.950Z","userId":8}
+{"level":"info","message":"User connected","socketId":"fIyuQoDO_TZuJrb2AAAD","timestamp":"2025-07-27T15:46:16.951Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-27T15:46:16.954Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error sending message","timestamp":"2025-07-27T15:46:30.445Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"fIyuQoDO_TZuJrb2AAAD","timestamp":"2025-07-27T15:46:38.482Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"_Tr59bYI_luaXcuXAAAB","timestamp":"2025-07-27T16:10:12.756Z","userId":8}
+{"level":"info","message":"User connected","socketId":"_Tr59bYI_luaXcuXAAAB","timestamp":"2025-07-27T16:10:12.760Z","userId":8}
+{"error":"\nInvalid `prisma.job.findUnique()` invocation:\n\n{\n  where: {\n+   id: Int\n  },\n  select: {\n    postedById: true,\n    freelancerId: true\n  }\n}\n\nArgument `id` is missing.","jobId":"order-28","level":"error","message":"Error joining job room","timestamp":"2025-07-27T16:10:12.767Z","userId":8}
+{"level":"info","message":"User disconnected","socketId":"_Tr59bYI_luaXcuXAAAB","timestamp":"2025-07-27T16:10:25.224Z","userId":8}
+{"level":"info","message":"User authenticated","socketId":"dkB0QOB6bDN7nCbNAAAD","timestamp":"2025-07-27T16:15:22.403Z","userId":7}
+{"level":"info","message":"User connected","socketId":"dkB0QOB6bDN7nCbNAAAD","timestamp":"2025-07-27T16:15:22.404Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T16:15:22.761Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T16:15:24.672Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"dkB0QOB6bDN7nCbNAAAD","timestamp":"2025-07-27T16:15:25.072Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"QcXg_WSWghAI9YN3AAAF","timestamp":"2025-07-27T16:40:48.424Z","userId":7}
+{"level":"info","message":"User connected","socketId":"QcXg_WSWghAI9YN3AAAF","timestamp":"2025-07-27T16:40:48.426Z","userId":7}
+{"jobId":7,"level":"info","message":"User joined job room","room":"job:7","timestamp":"2025-07-27T16:40:48.750Z","userId":7}
+{"jobId":7,"level":"info","message":"User joined job room","room":"job:7","timestamp":"2025-07-27T16:40:48.751Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"QcXg_WSWghAI9YN3AAAF","timestamp":"2025-07-27T16:40:52.081Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"X2RWI9Vgi2j-PodKAAAH","timestamp":"2025-07-27T16:40:52.178Z","userId":7}
+{"level":"info","message":"User connected","socketId":"X2RWI9Vgi2j-PodKAAAH","timestamp":"2025-07-27T16:40:52.179Z","userId":7}
+{"jobId":6,"level":"info","message":"User joined job room","room":"job:6","timestamp":"2025-07-27T16:40:52.405Z","userId":7}
+{"jobId":6,"level":"info","message":"Message sent","messageId":"3dbdba85-d40d-44d9-bde6-d2106b70616f","timestamp":"2025-07-27T16:40:57.051Z","userId":7}
+{"level":"info","message":"User disconnected","socketId":"X2RWI9Vgi2j-PodKAAAH","timestamp":"2025-07-27T16:40:58.900Z","userId":7}
+{"level":"info","message":"User authenticated","socketId":"JCoIeqpTf70hiLrLAAAJ","timestamp":"2025-07-27T16:40:59.044Z","userId":7}
+{"level":"info","message":"User connected","socketId":"JCoIeqpTf70hiLrLAAAJ","timestamp":"2025-07-27T16:40:59.045Z","userId":7}
+{"jobId":7,"level":"info","message":"User joined job room","room":"job:7","timestamp":"2025-07-27T16:40:59.218Z","userId":7}
