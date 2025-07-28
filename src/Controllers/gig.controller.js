@@ -519,7 +519,7 @@ const getGigAnalytics = async (req, res, next) => {
       include: {
         freelancer: true,
         orders: {
-          where: { status: { not: "REJECTED" } },
+          where: { status: { not: "CANCELLED" } },
           select: { id: true, createdAt: true, totalPrice: true },
         },
         reviews: { select: { rating: true } },
@@ -540,7 +540,7 @@ const getGigAnalytics = async (req, res, next) => {
       : 0;
     const repeatClients = await prisma.order.groupBy({
       by: ["clientId"],
-      where: { gigId: parseInt(gigId), status: { not: "REJECTED" } },
+      where: { gigId: parseInt(gigId), status: { not: "CANCELLED" } },
       _count: { clientId: true },
     }).then(groups => groups.filter(g => g._count.clientId > 1).length);
     const conversionRate = totalViews > 0 ? (totalPurchases / totalViews) * 100 : 0;

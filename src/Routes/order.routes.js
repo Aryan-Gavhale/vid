@@ -10,7 +10,6 @@ import {
   getPendingOrders,
   getCompletedOrders,
   getRejectedOrders,
-  getFreelancerActiveOrders,
 } from "../Controllers/order.controller.js";
 import { authenticateToken } from "../Middlewares/protect.middleware.js";
 import { validateBody, validateQuery } from "../Middlewares/validate.middleware.js";
@@ -41,11 +40,7 @@ const createOrderSchema = Joi.object({
   aspectRatio: Joi.string().required(),
   addSubtitles: Joi.boolean().optional(),
   expressDelivery: Joi.boolean().optional(),
-  uploadedFiles: Joi.array().items(Joi.object({
-    name: Joi.string().required(),
-    size: Joi.number().required(),
-    type: Joi.string().required()
-  })).optional(),
+  uploadedFiles: Joi.array().items(Joi.string().uri()).optional(),
   requirements: Joi.string().optional(),
   customDetails: Joi.object().optional(),
 });
@@ -64,7 +59,7 @@ const cancelOrderSchema = Joi.object({
 const getOrdersSchema = Joi.object({
   page: Joi.number().integer().min(1).default(1),
   limit: Joi.number().integer().min(1).max(100).default(10),
-  status: Joi.string().valid("PENDING", "CURRENT", "COMPLETED", "REJECTED").optional(),
+  status: Joi.string().valid("PENDING", "ACCEPTED", "IN_PROGRESS", "DELIVERED", "COMPLETED", "CANCELLED", "DISPUTED").optional(),
 });
 
 router.use(authenticateToken);
@@ -73,7 +68,6 @@ router.use(authenticateToken);
 router.post("/", validateBody(createOrderSchema), createOrder);
 router.get("/client", validateQuery(getOrdersSchema), getClientOrders);
 router.get("/freelancer", validateQuery(getOrdersSchema), getFreelancerOrders);
-router.get("/freelancer/active", getFreelancerActiveOrders); // Add this route for workspace
 router.get("/current", getCurrentOrders);
 router.get("/pending", getPendingOrders); // Moved up
 router.get("/completed", getCompletedOrders); // Moved up

@@ -20,8 +20,7 @@ const validateBody = (schema) => {
     if (parsedBody.budgetMin) parsedBody.budgetMin = Number(parsedBody.budgetMin);
     if (parsedBody.budgetMax) parsedBody.budgetMax = Number(parsedBody.budgetMax);
 
-    console.log("Raw request body:", req.body);
-    console.log("Parsed payload:", parsedBody); // Debug payload before validation
+    console.log("Validated payload:", parsedBody); // Debug payload before validation
 
     const { error, value } = schema.validate(parsedBody, {
       abortEarly: false,

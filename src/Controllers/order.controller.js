@@ -3,14 +3,12 @@ import { ApiError } from "../Utils/ApiError.js";
 import { ApiResponse } from "../Utils/ApiResponse.js";
 import prisma from "../prismaClient.js";
 import { v4 as uuidv4 } from "uuid";
-import logger from "../Utils/logger.js"; // Assuming a Winston or Pino logger
-import { queueNotification } from "../Utils/notificationService.js"; // For async notifications
+import logger from "../utils/logger.js"; // Assuming a Winston or Pino logger
+import { queueNotification } from "../utils/notificationService.js"; // For async notifications
 
 // Create Order
 const createOrder = async (req, res, next) => {
   try {
-    console.log("Order creation started", { body: req.body, user: req.user });
-    
     if (!req.user || !req.user.id) {
       throw new ApiError(401, "Unauthorized: User not authenticated");
     }
@@ -40,41 +38,40 @@ const createOrder = async (req, res, next) => {
 
     const orderNumber = `ORD-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, "0")}${String(new Date().getDate()).padStart(2, "0")}-${uuidv4().slice(0, 4).toUpperCase()}`;
 
-    // Quick validation first
-    const gig = await prisma.gig.findUnique({
-      where: { id: parseInt(gigId) },
-      include: { freelancer: true },
-    });
-    
-    if (!gig || gig.status !== "ACTIVE") {
-      throw new ApiError(404, "Gig not found or not active");
-    }
-
-    // Validate package
-    const pricingData = typeof gig.pricing === "string" ? JSON.parse(gig.pricing) : gig.pricing;
-    const selectedPackageData = pricingData.find((pkg) => pkg.name === selectedPackage);
-    
-    if (!selectedPackageData) {
-      throw new ApiError(400, "Invalid package selected");
-    }
-
-    // Calculate price and order details
-    const basePrice = Number(selectedPackageData.price);
-    if (isNaN(basePrice)) {
-      throw new ApiError(500, "Invalid package price format");
-    }
-
-    const totalPrice = expressDelivery ? basePrice * 1.5 : basePrice;
-    const priorityFee = expressDelivery ? basePrice * 0.5 : null;
-    const deliveryDeadline = new Date(Date.now() + (gig.deliveryTime || 7) * 24 * 60 * 60 * 1000);
-
-    // Create order with minimal transaction
     const order = await prisma.$transaction(async (tx) => {
+      // Validate gig
+      const gig = await tx.gig.findUnique({
+        where: { id: parseInt(gigId) },
+        include: { freelancer: true },
+      });
+      if (!gig || gig.status !== "ACTIVE") {
+        throw new ApiError(404, "Gig not found or not active");
+      }
+
+      // Validate package
+      const pricingData = typeof gig.pricing === "string" ? JSON.parse(gig.pricing) : gig.pricing;
+      const selectedPackageData = pricingData.find((pkg) => pkg.name === selectedPackage);
+      if (!selectedPackageData) {
+        throw new ApiError(400, "Invalid package selected");
+      }
+
+      // Calculate price and order details
+      const basePrice = Number(selectedPackageData.price); // convert string to number
+      if (isNaN(basePrice)) {
+        throw new ApiError(500, "Invalid package price format");
+      }
+
+      const totalPrice = expressDelivery ? basePrice * 1.5 : basePrice;
+      const priorityFee = expressDelivery ? basePrice * 0.5 : null;
+      const deliveryDeadline = new Date(Date.now() + (gig.deliveryTime || 7) * 24 * 60 * 60 * 1000);
+
+      // Create order
       const newOrder = await tx.order.create({
         data: {
           gigId: gig.id,
           clientId,
           freelancerId: gig.freelancerId,
+
           title,
           description,
           videoType,
@@ -84,7 +81,8 @@ const createOrder = async (req, res, next) => {
           aspectRatio,
           addSubtitles,
           expressDelivery,
-          uploadedFiles,
+          uploadedFiles, // Assumed to be JSON array of links or meta
+          
           package: selectedPackage,
           totalPrice,
           requirements,
@@ -97,6 +95,7 @@ const createOrder = async (req, res, next) => {
           urgencyLevel: expressDelivery ? "EXPRESS" : "STANDARD",
           orderPriority: expressDelivery ? 1 : 0,
           metadata: { clientIp: req.ip },
+
           statusHistory: {
             create: {
               status: "PENDING",
@@ -107,65 +106,67 @@ const createOrder = async (req, res, next) => {
         include: { gig: true, freelancer: { include: { user: true } }, statusHistory: true },
       });
 
-      // Update gig metrics (non-blocking)
-      tx.gig.update({
+      // Update gig metrics
+      await tx.gig.update({
         where: { id: gig.id },
         data: {
           orderCount: { increment: 1 },
           lastOrderedAt: new Date(),
           views: { increment: 1 },
+          conversionRate: {
+            set: gig.orderCount > 0 ? (gig.orderCount + 1) / (gig.views + 1) : 0,
+          },
         },
-      }).catch(console.error);
+      });
 
-      // Update freelancer profile (non-blocking)
-      tx.freelancerProfile.update({
+      // Update freelancer profile
+      await tx.freelancerProfile.update({
         where: { id: gig.freelancerId },
         data: {
           orderCount: { increment: 1 },
           activeOrders: { increment: 1 },
           lastActiveAt: new Date(),
         },
-      }).catch(console.error);
+      });
+
+      // Create notifications
+      await tx.notification.createMany({
+        data: [
+          {
+            userId: clientId,
+            type: "ORDER_UPDATE",
+            content: `Your order #${orderNumber} has been placed.`,
+            entityType: "ORDER",
+            entityId: newOrder.id,
+            priority: "HIGH",
+            deliveryMethod: "IN_APP",
+          },
+          {
+            userId: gig.freelancer.userId,
+            type: "ORDER_UPDATE",
+            content: `You have a new order #${orderNumber}.`,
+            entityType: "ORDER",
+            entityId: newOrder.id,
+            priority: "HIGH",
+            deliveryMethod: "IN_APP",
+          },
+        ],
+      });
 
       return newOrder;
     });
 
-    // Queue notifications for async delivery (non-blocking)
-    queueNotification({
+    // Queue notifications for async delivery
+    await queueNotification({
       orderId: order.id,
       clientId,
       freelancerId: order.freelancer.userId,
       orderNumber,
-    }).catch(error => console.error("Notification queue error:", error));
-
-    // Create notifications asynchronously
-    prisma.notification.createMany({
-      data: [
-        {
-          userId: clientId,
-          type: "ORDER_UPDATE",
-          content: `Your order #${orderNumber} has been placed.`,
-          entityType: "ORDER",
-          entityId: order.id,
-          priority: "HIGH",
-          deliveryMethod: "IN_APP",
-        },
-        {
-          userId: order.freelancer.userId,
-          type: "ORDER_UPDATE",
-          content: `You have a new order #${orderNumber}.`,
-          entityType: "ORDER",
-          entityId: order.id,
-          priority: "HIGH",
-          deliveryMethod: "IN_APP",
-        },
-      ],
-    }).catch(error => console.error("Notification creation error:", error));
+    });
 
     logger.info(`Order created: #${order.orderNumber} by client ${clientId}`);
     return res.status(201).json(new ApiResponse(201, order, "Order created successfully"));
   } catch (error) {
-    console.error("Order creation error:", error);
     logger.error(`Error creating order for client ${req.user?.id}: ${error.message}`, { error });
     return next(new ApiError(500, "Failed to create order", error.message));
   }
@@ -689,187 +690,6 @@ const getRejectedOrders = async (req, res, next) => {
   }
 };
 
-// Get Freelancer Active Orders for Workspace
-const getFreelancerActiveOrders = async (req, res, next) => {
-  try {
-    if (!req.user || !req.user.id) {
-      return next(new ApiError(401, "Unauthorized: User not authenticated"));
-    }
-    const freelancerId = req.user.id;
-
-    // Get freelancer profile
-    const freelancerProfile = await prisma.freelancerProfile.findUnique({
-      where: { userId: freelancerId },
-    });
-
-    if (!freelancerProfile) {
-      return next(new ApiError(404, "Freelancer profile not found"));
-    }
-
-    // Get active orders for this freelancer
-    const activeOrders = await prisma.order.findMany({
-      where: {
-        freelancerId: freelancerProfile.id,
-        status: {
-          in: ["CURRENT", "COMPLETED"]
-        }
-      },
-      include: {
-        gig: true,
-        client: {
-          select: {
-            id: true,
-            firstname: true,
-            lastname: true,
-            email: true,
-            profilePicture: true
-          }
-        },
-        messages: {
-          include: {
-            sender: {
-              select: {
-                id: true,
-                firstname: true,
-                lastname: true,
-                profilePicture: true
-              }
-            }
-          },
-          orderBy: {
-            timestamp: 'asc'
-          }
-        },
-        statusHistory: {
-          orderBy: {
-            changedAt: 'desc'
-          }
-        }
-      },
-      orderBy: {
-        createdAt: 'desc'
-      }
-    });
-
-    // Transform orders into workspace projects format
-    const workspaceProjects = activeOrders.map(order => ({
-      id: order.id,
-      title: order.title || `Order #${order.orderNumber}`,
-      name: order.title || `Order #${order.orderNumber}`,
-      status: order.status,
-      progress: calculateOrderProgress(order),
-      client: order.client,
-      freelancerId: order.freelancerId,
-      messages: order.messages,
-      notes: order.requirements || "",
-      timeline: generateOrderTimeline(order),
-      tasks: generateOrderTasks(order),
-      drafts: [], // Will be populated when draft system is implemented
-      revenue: order.totalPrice,
-      responseTime: order.responseTime || 24,
-      completionRate: order.completionRate || 95,
-      createdAt: order.createdAt,
-      deliveryDeadline: order.deliveryDeadline,
-      orderNumber: order.orderNumber,
-      gigId: order.gigId,
-      gig: order.gig
-    }));
-
-    return res.status(200).json(
-      new ApiResponse(200, workspaceProjects, "Freelancer active orders retrieved successfully")
-    );
-  } catch (error) {
-    console.error("Error retrieving freelancer active orders:", error);
-    return next(new ApiError(500, "Failed to retrieve active orders", error.message));
-  }
-};
-
-// Helper function to calculate order progress
-const calculateOrderProgress = (order) => {
-  const statusProgress = {
-    'PENDING': 0,
-    'CURRENT': 50,
-    'COMPLETED': 100,
-    'REJECTED': 0
-  };
-  return statusProgress[order.status] || 0;
-};
-
-// Helper function to generate order timeline
-const generateOrderTimeline = (order) => {
-  const timeline = [];
-  
-  // Add order creation
-  timeline.push({
-    id: `timeline-${order.id}-created`,
-    title: "Order Created",
-    date: order.createdAt,
-    status: "completed"
-  });
-
-  // Add status changes from history
-  order.statusHistory.forEach((history, index) => {
-    timeline.push({
-      id: `timeline-${order.id}-${index}`,
-      title: `Status: ${history.status}`,
-      date: history.changedAt,
-      status: history.status === "COMPLETED" ? "completed" : 
-              history.status === "CURRENT" ? "in-progress" : "pending"
-    });
-  });
-
-  // Add delivery deadline
-  if (order.deliveryDeadline) {
-    timeline.push({
-      id: `timeline-${order.id}-deadline`,
-      title: "Delivery Deadline",
-      date: order.deliveryDeadline,
-      status: new Date() > new Date(order.deliveryDeadline) ? "completed" : "pending"
-    });
-  }
-
-  return timeline.sort((a, b) => new Date(a.date) - new Date(b.date));
-};
-
-// Helper function to generate order tasks
-const generateOrderTasks = (order) => {
-  const tasks = [];
-  
-  // Add basic tasks based on order status
-  tasks.push({
-    id: `task-${order.id}-review`,
-    name: "Review Order Requirements",
-    status: order.status === "PENDING" ? "Pending" : "Completed",
-    hours: 1,
-    cost: 50,
-    dueDate: new Date(order.createdAt.getTime() + 24 * 60 * 60 * 1000).toISOString()
-  });
-
-  if (order.status !== "PENDING") {
-    tasks.push({
-      id: `task-${order.id}-work`,
-      name: "Complete Video Editing",
-      status: order.status === "COMPLETED" ? "Completed" : 
-              order.status === "CURRENT" ? "In Progress" : "Pending",
-      hours: 8,
-      cost: order.totalPrice * 0.8,
-      dueDate: order.deliveryDeadline?.toISOString() || new Date().toISOString()
-    });
-  }
-
-  if (order.status === "COMPLETED") {
-    tasks.push({
-      id: `task-${order.id}-delivery`,
-      name: "Deliver Final Files",
-      status: "Completed",
-      hours: 1,
-      cost: order.totalPrice * 0.2,
-      dueDate: order.deliveryDeadline?.toISOString() || new Date().toISOString()
-    });
-  }
-
-  return tasks;
-};
 
 
 export {
@@ -883,5 +703,4 @@ export {
   getPendingOrders,
   getCompletedOrders,
   getRejectedOrders,
-  getFreelancerActiveOrders, // Add this export
 };

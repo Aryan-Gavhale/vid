@@ -10,7 +10,7 @@ import { ApiError } from "../Utils/ApiError.js";
 const rateLimiter = (options = {}) => {
   const defaultOptions = {
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 1000, // 1000 requests per IP (increased from 100)
+    max: 100, // 100 requests per IP
     message: "Too many requests from this IP, please try again later",
     standardHeaders: true, // Return rate limit info in headers
     legacyHeaders: false, // Disable X-RateLimit headers
@@ -31,7 +31,7 @@ const rateLimiter = (options = {}) => {
 const rateLimiterByUser = (options = {}) => {
   const defaultOptions = {
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 500, // 500 requests per user (increased from 50)
+    max: 50, // 50 requests per user
     message: "Too many requests from this user, please try again later",
     standardHeaders: true,
     legacyHeaders: false,
@@ -45,26 +45,4 @@ const rateLimiterByUser = (options = {}) => {
   return rateLimit({ ...defaultOptions, ...options });
 };
 
-/**
- * Dashboard-specific rate limiter (more lenient for dashboard operations)
- * @param {Object} options - Rate limit options
- * @returns {Function} Middleware function
- */
-const dashboardRateLimiter = (options = {}) => {
-  const defaultOptions = {
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 2000, // 2000 requests per user for dashboard
-    message: "Too many dashboard requests, please try again later",
-    standardHeaders: true,
-    legacyHeaders: false,
-    keyGenerator: (req) => req.user ? req.user.id : req.ip,
-    skip: (req) => !req.user,
-    handler: (req, res, next) => {
-      next(new ApiError(429, "Too Many Requests", [{ message: "Dashboard rate limit exceeded" }]));
-    },
-  };
-
-  return rateLimit({ ...defaultOptions, ...options });
-};
-
-export { rateLimiter, rateLimiterByUser, dashboardRateLimiter };
+export { rateLimiter, rateLimiterByUser };
