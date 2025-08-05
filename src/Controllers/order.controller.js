@@ -12,6 +12,9 @@ const createOrder = async (req, res, next) => {
     if (!req.user || !req.user.id) {
       throw new ApiError(401, "Unauthorized: User not authenticated");
     }
+    console.log("🎯 In createOrder handler");
+    console.log("🧑‍💻 Authenticated user:", req.user);
+    console.log("📦 Request body:", req.body);
     const clientId = req.user.id;
     // const { gigId, selectedPackage, requirements, isUrgent, customDetails } = req.body;
 

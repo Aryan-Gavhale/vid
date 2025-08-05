@@ -350,45 +350,126 @@ const addReaction = async (req, res, next) => {
     const { emoji } = req.body;
     const userId = req.user.id;
 
+    if (!messageId || !emoji) {
+      return next(new ApiError(400, "Message ID and emoji are required"));
+    }
+
     const message = await prisma.message.findUnique({
       where: { id: messageId },
-      select: { reactions: true },
+      // select: { reactions: true },
     });
 
     if (!message) {
       return next(new ApiError(404, "Message not found"));
     }
 
-    let reactions = message.reactions || [];
-    const reactionIndex = reactions.findIndex((r) => r.emoji === emoji);
+    // // let reactions = message.reactions || [];
+    // let reactions = Array.isArray(message.reactions) ? [...message.reactions] : [];
 
-    if (reactionIndex > -1) {
-      const reaction = reactions[reactionIndex];
-      if (reaction.users.includes(userId)) {
-        reaction.users = reaction.users.filter((u) => u !== userId);
-        reaction.count--;
-        if (reaction.count === 0) {
-          reactions.splice(reactionIndex, 1);
-        }
-      } else {
-        reaction.users.push(userId);
-        reaction.count++;
+    const existingReaction = await prisma.reaction.findFirst({
+      where: {
+        messageId: messageId,
+        userId: userId,
+        emoji: emoji
       }
+    });
+
+    let updateReaction;
+
+    if (existingReaction) {
+      await prisma.reaction.delete({
+        where: { id: existingReaction.id }
+      });
     } else {
-      reactions.push({ emoji, count: 1, users: [userId] });
+      // Create new reaction
+      await prisma.reaction.create({
+        data: {
+          emoji: emoji,
+          userId: userId,
+          messageId: messageId
+        }
+      });
     }
 
-    const updatedMessage = await prisma.message.update({
-      where: { id: messageId },
-      data: { reactions },
-      select: { reactions: true },
+    // Get all reactions for this message to return updated data
+    const allReactions = await prisma.reaction.findMany({
+      where: { messageId: messageId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstname: true,
+            lastname: true
+          }
+        }
+      }
     });
+
+    const reactionGroups = {};
+    allReactions.forEach(reaction => {
+      if (!reactionGroups[reaction.emoji]) {
+        reactionGroups[reaction.emoji] = {
+          emoji: reaction.emoji,
+          count: 0,
+          users: []
+        };
+      }
+      reactionGroups[reaction.emoji].count++;
+      reactionGroups[reaction.emoji].users.push({
+        id: reaction.user.id,
+        name: `${reaction.user.firstname} ${reaction.user.lastname}`
+      });
+    });
+
+    // Format reactions to match your frontend expectations
+    const formattedReactions = Object.values(reactionGroups);
 
     return res
       .status(200)
-      .json(new ApiResponse(200, updatedMessage, "Reaction updated successfully"));
+      .json(new ApiResponse(200, {
+        messageId: messageId,
+        reactions: formattedReactions
+      }, "Reaction updated successfully"));
+
+    // const reactionIndex = reactions.findIndex((r) => r.emoji === emoji);
+
+    // if (reactionIndex > -1) {
+    //   const reaction = reactions[reactionIndex];
+    //   if (!Array.isArray(reaction.users)) {
+    //     reaction.users = [];
+    //   }
+    //   if (reaction.users.includes(userId)) {
+    //     reaction.users = reaction.users.filter((u) => u !== userId);
+    //     // reaction.count--;
+    //     reaction.count = Math.max(0, (reaction.count || 0) - 1);
+    //     if (reaction.count === 0) {
+    //       reactions.splice(reactionIndex, 1);
+    //     }
+    //   } else {
+    //     reaction.users.push(userId);
+    //     // reaction.count++;
+    //     reaction.count = (reaction.count || 0) + 1;
+    //   }
+    // } else {
+    //   reactions.push({ emoji, count: 1, users: [userId] });
+    // }
+
+    // const updatedMessage = await prisma.message.update({
+    //   // where: { id: messageId },
+    //   where: { id: parsedMessageId },
+    //   data: { reactions },
+    //   select: { id: true, reactions: true },
+    // });
+
+    // return res
+    //   .status(200)
+    //   .json(new ApiResponse(200, updatedMessage, "Reaction updated successfully"));
+
   } catch (error) {
     console.error("Error adding reaction:", error);
+    console.error("Request params:", req.params);
+    console.error("Request body:", req.body);
+    console.error("User ID:", req.user?.id);
     return next(new ApiError(500, "Failed to add reaction", error.message));
   }
 };

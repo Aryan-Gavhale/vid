@@ -93,6 +93,7 @@ model User {
   rejectedJobsId     Int[]                @map("rejected_jobs_id")
   applications       Application[]        @relation("FreelancerApplications")
   messages           Message[]            @relation("UserMessages")
+  reactions          Reaction[]
 
   @@index([email])
 }
@@ -517,6 +518,18 @@ enum ModerationStatus {
   REJECTED
 }
 
+model Reaction {
+  id        Int      @id @default(autoincrement())
+  emoji     String
+  userId    Int      // Add this field
+  message   Message  @relation(fields: [messageId], references: [id])
+  messageId String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  
+  @@unique([messageId, userId, emoji]) // Prevent duplicate reactions
+}
+
 // Message model (Updated)
 model Message {
   id          String   @id @default(uuid())
@@ -534,6 +547,8 @@ model Message {
   replies Message[] @relation("MessageReplies")
   Order   Order?    @relation(fields: [orderId], references: [id])
   orderId Int?
+
+  reactions  Reaction[]
 }
 
 // Category model (Unchanged)

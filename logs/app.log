@@ -1234,3 +1234,114 @@
 {"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-13T09:29:16.519Z"}
 {"level":"info","message":"Retrieved 1 rejected orders for freelancer 1","timestamp":"2025-07-13T09:29:16.520Z"}
 {"level":"info","message":"Retrieved 2 current orders for freelancer 1","timestamp":"2025-07-13T09:29:16.522Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:32:48.305Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:32:48.315Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:34:03.416Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:34:03.424Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:37:59.568Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:37:59.575Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:43:20.188Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:43:20.198Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:47:13.929Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:47:13.972Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:49:19.052Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:49:19.066Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:50:01.388Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:50:01.395Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:52:45.981Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:52:45.994Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:53:57.552Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:53:57.564Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:56:47.593Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:56:47.603Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:57:32.537Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T16:57:32.545Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T17:00:45.530Z"}
+{"level":"info","message":"Retrieved 3 client orders for user 2","timestamp":"2025-07-30T17:00:45.542Z"}
+{"level":"info","message":"Retrieved 3 freelancer orders for freelancer 1","timestamp":"2025-07-30T17:35:07.158Z"}
+{"level":"info","message":"Retrieved 3 freelancer orders for freelancer 1","timestamp":"2025-07-30T17:35:11.107Z"}
+{"level":"info","message":"Retrieved 3 freelancer orders for freelancer 1","timestamp":"2025-07-30T17:35:11.118Z"}
+{"level":"info","message":"Retrieved 9 freelancer orders for freelancer 1","timestamp":"2025-07-30T17:41:07.876Z"}
+{"level":"info","message":"Retrieved 9 freelancer orders for freelancer 1","timestamp":"2025-07-30T17:41:07.892Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.957Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.959Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.960Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.960Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.960Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-30T17:43:37.960Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:47:05.743Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:47:05.748Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:47:26.649Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:47:26.657Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:48:35.000Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:48:35.006Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:52:37.101Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:52:37.110Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:52:45.009Z"}
+{"level":"info","message":"Retrieved 0 client orders for user 3","timestamp":"2025-07-30T17:52:45.016Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:07:42.940Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:07:42.950Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:14:42.992Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:14:42.999Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.752Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.760Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.762Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.763Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.763Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.765Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:18:49.766Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:25:49.788Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T09:25:49.792Z"}
+{"level":"info","message":"Retrieved 2 current orders for freelancer 1","timestamp":"2025-07-31T09:29:55.844Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T09:29:55.847Z"}
+{"level":"info","message":"Retrieved 1 rejected orders for freelancer 1","timestamp":"2025-07-31T09:29:55.851Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:29:55.852Z"}
+{"level":"info","message":"Retrieved 2 current orders for freelancer 1","timestamp":"2025-07-31T09:29:55.868Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T09:29:55.871Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:29:55.876Z"}
+{"level":"info","message":"Retrieved 1 rejected orders for freelancer 1","timestamp":"2025-07-31T09:29:55.882Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:30:51.442Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:30:51.452Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:32:36.023Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T09:32:36.036Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-31T10:00:42.229Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-31T10:00:42.238Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-31T10:02:11.622Z"}
+{"level":"info","message":"Retrieved 0 pending orders for freelancer 1","timestamp":"2025-07-31T10:02:11.635Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:03:46.351Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:03:46.358Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:06:30.768Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:30.778Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:06:30.779Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:06:30.780Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:06:30.796Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:30.805Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:06:30.807Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:06:30.807Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:42.331Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:42.345Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:06:55.303Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:06:55.306Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:55.307Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:06:55.307Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:06:55.329Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:06:55.332Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:06:55.334Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:06:55.339Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:07:18.486Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:07:18.498Z"}
+{"error":{},"level":"error","message":"Error creating order for client 2: Reached the max retries per request limit (which is 20). Refer to \"maxRetriesPerRequest\" option for details.","timestamp":"2025-07-31T10:07:50.010Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:08:25.658Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:08:25.667Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:08:34.565Z"}
+{"level":"info","message":"Retrieved 1 client orders for user 2","timestamp":"2025-07-31T10:08:34.573Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:09:31.329Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:09:31.351Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:09:35.993Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:09:36.004Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:09:36.005Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:09:36.010Z"}
+{"level":"info","message":"Retrieved 1 pending orders for freelancer 1","timestamp":"2025-07-31T10:09:36.029Z"}
+{"level":"info","message":"Retrieved 0 current orders for freelancer 1","timestamp":"2025-07-31T10:09:36.041Z"}
+{"level":"info","message":"Retrieved 0 completed orders for freelancer 1","timestamp":"2025-07-31T10:09:36.042Z"}
+{"level":"info","message":"Retrieved 0 rejected orders for freelancer 1","timestamp":"2025-07-31T10:09:36.043Z"}
